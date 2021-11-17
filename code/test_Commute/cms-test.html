@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+    <title>Test CMS Connection</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var client = contentful.createClient({
+            space: 'iwtb13jor1ni',
+            accessToken: 'ILlqA74cGHgrjHnjY2Ab4Vw6hSV-spZuzt83yBROrJU',
+        });
+
+        console.log("Client",client);
+        
+        // Get All Entries
+        client.getEntries().then(function(entries) {
+            console.log("All Entries",entries);
+            entries.items.forEach(item => {
+                console.log("Item",item.fields);
+
+                let divEle = document.createElement('div');
+                let pEle = document.createElement('p');
+                pEle.style.fontSize = "10000px"
+                pEle.style.fontFamily = 'monospace'
+                let name = item.fields.name != undefined ? item.fields.name : 'There is no name!'
+                pEle.innerText = name;
+                divEle.appendChild(pEle);
+
+                document.body.appendChild(divEle)
+            });
+        });
+
+        // Get Entry by Id
+        client.getEntry("lbryQBue59FfD1yWKgUOT").then( function (entry) {
+            //console.log("One Entry",entry);
+        })
+
+        // Get Entry 'Start'
+        client.getEntries({
+            content_type: 'start',
+        })
+        .then(function (entry) {
+            //console.log(entry);
+        })
+        
+    </script>
+</body>
+</html>
