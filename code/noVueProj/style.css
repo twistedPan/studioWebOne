@@ -33,7 +33,7 @@
     margin-left: 400px;
     width: 1000px;
     height: 400px;
-    background-color: cadetblue;
+    background-color: black; /*cadetblue*/
     z-index: 0;
 
     transform-style: preserve-3d;
