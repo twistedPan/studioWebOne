@@ -1,2 +1,3 @@
-# studioWebOne
-HSLU Studio Web
+# HSLU Studio Web One
+
+made by 
