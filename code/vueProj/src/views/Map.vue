@@ -1,10 +1,10 @@
 <template>
     <div>
-    <li 
+    <li
     v-for="commute in commutes" :key="commute.person">
-      <Commute_CO 
-        :person="commute.fields.name" 
-        :start="commute.fields.start" 
+      <Commute_CO
+        :person="commute.fields.name"
+        :start="commute.fields.start"
         :destination="commute.fields.standort" />
     </li>
         <h1>Me Map</h1>
@@ -36,7 +36,7 @@ export default {
       "pk.eyJ1IjoibWh1c20iLCJhIjoiY2tnYzVxbHNnMDV5eTJ4bzdnb3R3NGx2bSJ9.FOXkMmSBQgCQSNCQJwxtYg";
     let map = new mapboxgl.Map({
       container: this.$refs.container, // container ID
-      style: "mapbox://styles/mhusm/ckgcbplva0qvl19mbxd78ma97", // Map Style
+      style: "mapbox://styles/kaszedal/ckvting2h21wl14nc8b9z6oku", // Map Style
       center: [8.546385, 47.190093], // starting position [lng, lat]
       zoom: 10, // starting zoom
     });
