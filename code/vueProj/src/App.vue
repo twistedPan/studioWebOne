@@ -19,10 +19,6 @@
   text-align: center;
   color: #2c3e50;
 
-  /* perspective: 200px; */
-  /* x / y => half screen with / sreen height*/
-  /* perspective-origin: 960px 400px; */
-  /* Fluchtpunkt oben in der Mitte der Referenz-Box */
 }
 
 #nav {

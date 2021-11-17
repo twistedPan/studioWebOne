@@ -1,13 +1,15 @@
 <template>
   <div class="commute">
-    <h1>This is about a page about a commute</h1>
+    <h1>This Page is dead</h1>
     <li 
     v-for="commute in commutes" :key="commute.person">
       <Commute_CO 
-        :person="commute.fields.name" 
-        :start="commute.fields.start" 
-        :destination="commute.fields.standort" />
+        :id="commute.fields.id" 
+        :name="commute.fields.name" 
+        :images="commute.fields.image" 
+        :destination="commute.fields.destination" />
     </li>
+    <p>This Page is dead</p>
   </div>
 </template>
 
@@ -47,8 +49,7 @@ export default {
 <style>
 .commute {
   background-color: wheat;
-
-  transform-style: preserve-3d;
-  transform: rotateX(45deg);
+  /* transform-style: preserve-3d;
+  transform: rotateX(45deg); */
 }
 </style>

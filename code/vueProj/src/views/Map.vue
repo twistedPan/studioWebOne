@@ -1,23 +1,22 @@
 <template>
-<div>
-  <li v-for="commute in commutes" :key="commute.person">
-    <Commute_CO :person="commute.fields.name" :start="commute.fields.start" :destination="commute.fields.standort" />
-  </li>
-  <h1>Me Map</h1>
-  <div class="frame">
-  </div>
-  <div ref="container" class="map"></div>
+    <div>
+    <li
+    v-for="commute in commutes" :key="commute.person">
+      <Commute_CO 
+        :id="commute.fields.id" 
+        :name="commute.fields.name" 
+        :images="commute.fields.images" 
+        :destination="commute.fields.destination" />
+    </li>
+    <h1>Main Page</h1>
+    <div ref="container" class="map"></div>
 </div>
 </template>
 
 <script>
 import Commute_CO from "@/components/Commute_CO.vue";
 import mapboxgl from "mapbox-gl";
-//import getCoordinatesFromGpxFile from "@/modules/gpx-utilities.js";
-//import contentful from "@/modules/contentful.js";
-import {
-  createClient
-} from "contentful";
+import { createClient } from "contentful";
 
 export default {
   name: "Map",
@@ -50,16 +49,12 @@ export default {
     });
 
     map.on("load", async function() {
-      /* let coordinates = await getCoordinatesFromGpxFile(
-        await contentful.getFirstGPXFileUrl()
-      ); */
       map.addSource("route", {
         type: "geojson",
         data: {
           type: "Feature",
           geometry: {
             type: "LineString",
-            //coordinates: coordinates
           }
         }
       });
@@ -81,19 +76,18 @@ export default {
   },
   created: function() {
     let client = createClient({
-      space: 'h901iwmug6ht', // MeSeeksGreekGeeks: h901iwmug6ht
-      accessToken: 'Tp72VnrvN7SETkR1RcKpydt8mbvmOWxLrUGv', // Tp72VnrvN7SETkR1RcKpydt8mbvmOWxLrUGv-ofECDM
+      space: 'h901iwmug6ht',
+      accessToken: 'Tp72VnrvN7SETkR1RcKpydt8mbvmOWxLrUGv-ofECDM',
     });
-
     client
-      .getEntries()
-      .then(entries => {
-        console.log("All Entries", entries);
-        entries.items.forEach(item => {
-          console.log("- --> item", item);
-          this.commutes.push(item);
+      .getEntries({content_type: 'scene'})
+        .then( entries => {
+            //console.log("All Entries",entries);
+            entries.items.forEach(item => {
+              console.log("- --> item", item);
+              this.commutes.push(item);
+            });
         });
-      });
   }
 };
 </script>
@@ -101,18 +95,7 @@ export default {
 
 
 <style src='mapbox-gl/dist/mapbox-gl.css'>
-</style><style scoped>.frame {
-  position: relative;
-  top: calc(var(--h)/2);
-  width: 100%;
-  height: 100%;
-  background-color: aquamarine;
-
-  perspective: 0px;
-  /* x / y => half screen with / sreen height*/
-  perspective-origin: calc(var(--w)/2) 100px;
-  /* Fluchtpunkt oben in der Mitte der Referenz-Box */
-}
+</style><style scoped>
 
 .map {
   /* position: absolute; */

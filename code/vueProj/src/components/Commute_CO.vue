@@ -11,9 +11,25 @@
 export default {
   name: "Commute",
   props: {
-    person: String,
-    start: String,
+    id: String,
+    Name: String,
+    images: [],
     destination: Object
   }
 };
 </script>
+
+<!--
+
+Image [ 
+  {
+    name: String,
+    src: url,
+    position: string,
+    placement: string
+  },
+  ....
+]
+
+
+-->
