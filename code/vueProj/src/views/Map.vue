@@ -47,11 +47,6 @@ export default {
       horizon - blend: 0.1
     });
 
-    map.setFog({
-      range: [-1, 1.5],
-      color: 'black',
-      horizon - blend: 0.1
-    });
 
     map.on("load", async function() {
       /* let coordinates = await getCoordinatesFromGpxFile(
@@ -67,14 +62,6 @@ export default {
           }
         }
       });
-<<<<<<< HEAD
-=======
-      map.setFog({
-range: [-1, 1.5],
-color: 'black',
-horizon-blend: 0.1
-});
->>>>>>> 2214f8f9bdec29f50bac6c2bc3e044e70edabe31
 
       map.addLayer({
         id: "route",
