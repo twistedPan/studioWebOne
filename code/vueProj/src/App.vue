@@ -1,8 +1,7 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link>
-    <router-link to="/map">Map</router-link>
-    <p>This is Nav space</p>
+    <!-- <router-link to="/">Home</router-link> -->
+    <!-- <router-link to="/map">Map</router-link> -->
     <router-view/>
   </div>
 </template>
@@ -20,14 +19,15 @@
   text-align: center;
   color: #2c3e50;
 
-  perspective: 200px;
+  /* perspective: 200px; */
   /* x / y => half screen with / sreen height*/
-  perspective-origin: 960px 400px;
+  /* perspective-origin: 960px 400px; */
   /* Fluchtpunkt oben in der Mitte der Referenz-Box */
 }
 
 #nav {
-  padding: 30px;
+  margin: 0;
+  padding: 0;
 }
 
 #nav a {

@@ -37,10 +37,10 @@ export default {
     let map = new mapboxgl.Map({
         container: this.$refs.container, // container ID
         style: "mapbox://styles/kaszedal/ckvting2h21wl14nc8b9z6oku", // Map Style
-        center: [8.546385, 47.190093], // starting position [lng, lat]
+        center: [8.313357, 47.050149], // starting position [lng, lat] 47°03'00.5"N 8°18'48.1"E
         pitch: 120, // Tilting/Neigung in degrees
         bearing: 0, // Rotation um Y
-        zoom: 10, // starting zoom
+        zoom: 15, // starting zoom
     });
         // Displaying a GPX track
     map.on("load", async function() {
@@ -111,11 +111,13 @@ export default {
 }
 
 .map {
-    position: absolute;
+    /* position: absolute; */
+    margin: 0;
+    padding: 0;
     /* margin-left: -480px; */
     /* margin-right: auto; */
     height: 80vh;
-    width: 80vw;
+    width: 100%;
     background-color: cadetblue;
     z-index: 0;
 
