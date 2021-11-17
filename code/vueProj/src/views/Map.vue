@@ -44,8 +44,8 @@ export default {
     await map.once('load');
     // Add fog
     map.setFog({
-      'range': [-1, 1.5],
-      'color': 'white',
+      'range': [-1, 2],
+      'color': 'black',
       'horizon-blend': 0.1
     });
 
