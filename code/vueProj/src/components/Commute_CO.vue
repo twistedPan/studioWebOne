@@ -1,8 +1,8 @@
 <template>
     <div class="commute">
-        <h2>{{person}}'s commute</h2>
+        <!-- <h2>{{person}}'s commute</h2>
         <p>This is <span class="person">{{person}}</span></p>
-        <p>{{person}} commutes from {{start}} to {{destination}}</p>
+        <p>{{person}} commutes from {{start}} to {{destination}}</p> -->
     </div>
 </template>
 
