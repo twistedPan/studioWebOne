@@ -8,7 +8,9 @@
         :destination="commute.fields.standort" />
     </li>
         <h1>Me Map</h1>
-        <div ref="container" class="map"></div>
+        <div class="frame">
+            <div ref="container" class="map"></div>
+        </div>
   </div>
 </template>
 
@@ -34,9 +36,9 @@ export default {
       "pk.eyJ1IjoibWh1c20iLCJhIjoiY2tnYzVxbHNnMDV5eTJ4bzdnb3R3NGx2bSJ9.FOXkMmSBQgCQSNCQJwxtYg";
     let map = new mapboxgl.Map({
       container: this.$refs.container, // container ID
-      style: "mapbox://styles/mhusm/ckgcbplva0qvl19mbxd78ma97", // My custom style
+      style: "mapbox://styles/mhusm/ckgcbplva0qvl19mbxd78ma97", // Map Style
       center: [8.546385, 47.190093], // starting position [lng, lat]
-      zoom: 9, // starting zoom
+      zoom: 10, // starting zoom
     });
         // Displaying a GPX track
     map.on("load", async function() {
@@ -70,7 +72,7 @@ export default {
   },
   created: function() {
     let client = createClient({
-      space: 'iwtb13jor1ni',
+      space: 'iwtb13jor1ni', // MeSeeksGreekGeeks: h901iwmug6ht
       accessToken: 'ILlqA74cGHgrjHnjY2Ab4Vw6hSV-spZuzt83yBROrJU',
     });
 
@@ -92,8 +94,32 @@ export default {
 
 <style src='mapbox-gl/dist/mapbox-gl.css'></style>
 <style scoped >
+
+.frame {
+    position: relative;
+    top: calc(var(--h)/2);
+    width: 100%;
+    height: 100%;
+    background-color: aquamarine;
+
+    perspective: 250px;
+    /* x / y => half screen with / sreen height*/
+    perspective-origin: calc(var(--w)/2) 100px;
+    /* Fluchtpunkt oben in der Mitte der Referenz-Box */
+}
+
 .map {
-  height: 100vh;
-  width: 100vw;
+    position: absolute;
+    margin-left: 24.6%;
+    margin-right: auto;
+    height: 50vh;
+    width: 50vw;
+    background-color: cadetblue;
+    z-index: 0;
+
+    transform-style: preserve-3d;
+    transform: rotate3d(1,0,0, 90deg) skewX(0deg); /* translateZ(-150px) */
+
+
 }
 </style>
