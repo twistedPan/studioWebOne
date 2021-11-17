@@ -1,16 +1,16 @@
 <template>
     <div>
-    <li
+    <li 
     v-for="commute in commutes" :key="commute.person">
-      <Commute_CO
-        :person="commute.fields.name"
-        :start="commute.fields.start"
+      <Commute_CO 
+        :person="commute.fields.name" 
+        :start="commute.fields.start" 
         :destination="commute.fields.standort" />
     </li>
         <h1>Me Map</h1>
         <div class="frame">
-            <div ref="container" class="map"></div>
         </div>
+        <div ref="container" class="map"></div>
   </div>
 </template>
 
@@ -35,10 +35,12 @@ export default {
     mapboxgl.accessToken =
       "pk.eyJ1IjoibWh1c20iLCJhIjoiY2tnYzVxbHNnMDV5eTJ4bzdnb3R3NGx2bSJ9.FOXkMmSBQgCQSNCQJwxtYg";
     let map = new mapboxgl.Map({
-      container: this.$refs.container, // container ID
-      style: "mapbox://styles/kaszedal/ckvting2h21wl14nc8b9z6oku", // Map Style
-      center: [8.546385, 47.190093], // starting position [lng, lat]
-      zoom: 10, // starting zoom
+        container: this.$refs.container, // container ID
+        style: "mapbox://styles/mhusm/ckgcbplva0qvl19mbxd78ma97", // Map Style
+        center: [8.546385, 47.190093], // starting position [lng, lat]
+        pitch: 120, // Tilting/Neigung in degrees
+        bearing: 0, // Rotation um Y
+        zoom: 10, // starting zoom
     });
         // Displaying a GPX track
     map.on("load", async function() {
@@ -72,8 +74,8 @@ export default {
   },
   created: function() {
     let client = createClient({
-      space: 'iwtb13jor1ni', // MeSeeksGreekGeeks: h901iwmug6ht
-      accessToken: 'ILlqA74cGHgrjHnjY2Ab4Vw6hSV-spZuzt83yBROrJU',
+      space: 'h901iwmug6ht', // MeSeeksGreekGeeks: h901iwmug6ht
+      accessToken: 'Tp72VnrvN7SETkR1RcKpydt8mbvmOWxLrUGv', // Tp72VnrvN7SETkR1RcKpydt8mbvmOWxLrUGv-ofECDM
     });
 
     client
@@ -102,7 +104,7 @@ export default {
     height: 100%;
     background-color: aquamarine;
 
-    perspective: 250px;
+    perspective: 0px;
     /* x / y => half screen with / sreen height*/
     perspective-origin: calc(var(--w)/2) 100px;
     /* Fluchtpunkt oben in der Mitte der Referenz-Box */
@@ -110,15 +112,15 @@ export default {
 
 .map {
     position: absolute;
-    margin-left: 24.6%;
-    margin-right: auto;
-    height: 50vh;
-    width: 50vw;
+    /* margin-left: -480px; */
+    /* margin-right: auto; */
+    height: 80vh;
+    width: 80vw;
     background-color: cadetblue;
     z-index: 0;
 
-    transform-style: preserve-3d;
-    transform: rotate3d(1,0,0, 90deg) skewX(0deg); /* translateZ(-150px) */
+    /* transform-style: preserve-3d;
+    transform: rotate3d(1,0,0, 90deg) skewX(0deg); */ /* translateZ(-150px) */
 
 
 }
