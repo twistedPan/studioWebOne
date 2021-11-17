@@ -46,6 +46,7 @@ function mapRange(n, start1, stop1, start2, stop2) {
 function limit(n, low, high) {
   return Math.max(Math.min(n, high), low);
 }
+
 </script>
 
 <style>
