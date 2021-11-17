@@ -57,6 +57,12 @@ export default {
           }
         }
       });
+      map.setFog({
+range: [-1, 1.5],
+color: 'black',
+horizon-blend: 0.1
+});
+
       map.addLayer({
         id: "route",
         type: "line",
