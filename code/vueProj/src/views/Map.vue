@@ -41,12 +41,13 @@ export default {
       zoom: 15, // starting zoom
     });
     // Displaying a GPX track
+    await map.once('load');
+    // Add fog
     map.setFog({
-      range: [-1, 1.5],
-      color: 'black',
-      horizon - blend: 0.1
+      'range': [-1, 1.5],
+      'color': 'white',
+      'horizon-blend': 0.1
     });
-
 
     map.on("load", async function() {
       /* let coordinates = await getCoordinatesFromGpxFile(
