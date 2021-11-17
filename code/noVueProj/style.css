@@ -20,7 +20,7 @@
     top: calc(var(--h)/2);
     width: 100%;
     height: 100%;
-    background-color: aquamarine;
+    background-color: white;
 
     perspective: 250px;
     /* x / y => half screen with / sreen height*/
