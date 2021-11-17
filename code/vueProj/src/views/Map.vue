@@ -3,7 +3,7 @@
     <li
     v-for="commute in commutes" :key="commute.person">
       <Commute_CO 
-        :id="commute.fields.id" 
+        :id="commute.fields.id"
         :name="commute.fields.name" 
         :images="commute.fields.images" 
         :destination="commute.fields.destination" />

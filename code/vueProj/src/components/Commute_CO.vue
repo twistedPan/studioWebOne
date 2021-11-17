@@ -1,8 +1,8 @@
 <template>
     <div class="commute">
-        <h2>{{person}}'s commute</h2>
-        <p>This is <span class="person">{{person}}</span></p>
-        <p>{{person}} commutes from {{start}} to {{destination}}</p>
+        <p>This is Number {{id}}</p>
+        <p>The Name is {{name}}</p>
+        <p>{{id}} commutes from {{id}} to {{id}}</p>
     </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   name: "Commute",
   props: {
     id: String,
-    Name: String,
+    name: String,
     images: [],
     destination: Object
   }
