@@ -8,25 +8,6 @@
 
 <script>
 
-export default {
-    name: "App",
-    methods: {
-        moveScreen: function(event) {
-            let navEle = document.getElementById("main");
-            console.log("Move",navEle,event);
-            //console.log(this.commutes);
-            
-            let mousePosX = event.screenX;
-            if (mousePosX > 1920) mousePosX -= 1920;
-            let mousePosY = event.screenY;
-            let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 20, -20);
-            let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, 0, 5);
-            //console.log("mousePosX", mousePosX, "MapX", mouseXMap, "\nmousePosY", mousePosY,"MapY", mouseYMap);
-            navEle.style.transform = `rotate3d(1,0,0, ${30 + mouseYMap}deg) skewX(${mouseXMap}deg)`;
-        }
-    }
-}
-
 </script>
 
 

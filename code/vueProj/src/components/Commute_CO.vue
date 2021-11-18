@@ -20,10 +20,11 @@
     </div>
 </template>
 
- 
+
 <script>
 export default {
   name: "Commute",
+  el: "commutes",
   props: {
     id: Number,
     name: String,

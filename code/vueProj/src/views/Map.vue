@@ -2,10 +2,10 @@
     <div v-on:wheel="scrolly" v-on:mousemove="moveScreen" v-on:click="logClick">
     <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
-    <div v-for="scene in commutes" :key="scene">
-      <Commute_CO
+    <div id="mainScene" ref="sceneRef" v-for="scene in commutes" :key="scene">
+      <Commute_CO 
         :id="scene.id"
-        :name="scene.name"
+        :name="scene.name" 
         :images="scene.imageArr"
         :mapPoint="scene.location" />
     </div>
@@ -31,17 +31,18 @@ export default {
         if (Window.Scrollindex < 0) Window.Scrollindex = 0; // no negatives
         //console.log(Window.Scrollindex);
     },
-    /* moveScreen: function (event) {
+    moveScreen: function (event) {
         //console.log("Move",event);
-        //console.log(this.commutes);
         let mousePosX = event.screenX;
         if (mousePosX > 1920) mousePosX -= 1920;
         let mousePosY = event.screenY;
         let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 20, -20);
         let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, 0, 5);
+        //let ele_Scene = document.getElementById("scene");
         //console.log("mousePosX", mousePosX, "MapX", mouseXMap, "\nmousePosY", mousePosY,"MapY", mouseYMap);
-        //this.el.style.transform = `rotate3d(1,0,0, ${45 + mouseYMap}deg) skewX(${mouseXMap}deg)`;
-    }, */
+        this.$refs.scene.style.transform = `rotate3d(1,0,0, ${mouseYMap}deg) skewX(${mouseXMap}deg)`;
+        //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
+    },
     logClick : function (event) {
         console.log(event.target)
     }
@@ -68,7 +69,7 @@ export default {
     map.setFog({
       'range': [-1, 2],
       'color': 'black',
-      'horizon-blend': 0.3
+      'horizon-blend': 0.1
     });
 
     map.on("load", async function() {
@@ -116,10 +117,10 @@ export default {
                     name : item.fields.name,
                     imageArr : [],
                     location : {
-                        lon : item.fields.mappoint.fields.location.lon,
+                        lon : item.fields.mappoint.fields.location.lon, 
                         lat : item.fields.mappoint.fields.location.lat
                 }}
-
+                
                 item.fields.image.forEach(imageType => {
                     let imageObj = {
                         src : imageType.fields.image.fields.file.url,
@@ -165,7 +166,7 @@ export default {
                 console.log("Scene",sceneObj);
 
                 Window.Content.push(sceneObj);
-
+                
                 this.commutes.push(sceneObj);
             });
         });
@@ -190,12 +191,15 @@ export default {
     background-color: cadetblue;
 }
 
-.commute {
+#mainScene {
     position: absolute;
     z-index: 1;
     top: 0;
     width: 100%;
     color: white;
+}
+
+.commute {
 
     /* 3D */
     /* transform-style: preserve-3d;
