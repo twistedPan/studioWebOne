@@ -10,7 +10,11 @@
             <li v-for="image in images" :key="image">
                 <p>{{image.name}}</p>
                 <p>{{image.position}} und {{image.placement}}</p>
-                <img class="image3D" v-bind:src=image.src />
+                <img 
+                    class="image3D" 
+                    v-bind:src=image.src 
+                    
+                />
             </li>
     </div>
 </template>

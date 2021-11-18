@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-on:wheel="scrolly" v-on:mousemove="moveScreen">
     <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
     <div v-for="scene in commutes" :key="scene">
@@ -21,6 +21,27 @@ export default {
   name: "Map",
   components: {
     Commute_CO
+  },
+  methods: {
+    scrolly: function (event) {
+        //console.log("Event", event);
+
+        // check if mouse wheel up or down
+        if (event.deltaY < 0) Window.Scrollindex--; // mousewheel up
+        else Window.Scrollindex++;                  // mousewheel down
+        if (Window.Scrollindex < 0) Window.Scrollindex = 0; // no negatives
+        console.log(Window.Scrollindex);
+    },
+    moveScreen: function (event) {
+        //console.log("Move",event);
+        let mousePosX = event.screenX;
+        if (mousePosX > 1920) mousePosX -= 1920;
+        let mousePosY = event.screenY;
+        let mouseXMap = mapRange(mousePosX, 0, 1920, 20, -20);
+        let mouseYMap = mapRange(mousePosY, 0, 1080, 0, 5);
+        //console.log("mousePosX", mousePosX, "MapX", mouseXMap, "\nmousePosY", mousePosY,"MapY", mouseYMap);
+        //this.el.style.transform = `rotate3d(1,0,0, ${45 + mouseYMap}deg) skewX(${mouseXMap}deg)`;
+    }
   },
   data: function() {
     return {
@@ -98,10 +119,41 @@ export default {
                 item.fields.image.forEach(imageType => {
                     let imageObj = {
                         src : imageType.fields.image.fields.file.url,
-                        position : imageType.fields.position,
-                        placement : imageType.fields.placement,
+                        position : "0px",
+                        placement : "0px",
                         name : imageType.fields.titel
                     }
+
+                    switch (imageType.fields.position) {
+                        case "Vordergrund":
+                            imageObj.position = "100px";
+                            break;
+                        case "Hauptgrund":
+                            imageObj.position = "-50px";
+                            break;
+                        case "Hintergrund":
+                            imageObj.position = "-200px";
+                            break;
+                        default:
+                            console.log("Wrong Position for",imageType.fields.titel);
+                            break;
+                    }
+
+                    switch (imageType.fields.placement) {
+                        case "links":
+                            imageObj.placement = "-400px";
+                            break;
+                        case "mitte":
+                            imageObj.placement = "0px";
+                            break;
+                        case "rechts":
+                            imageObj.placement = "400px";
+                            break;
+                        default:
+                            console.log("Wrong Position for",imageType.fields.titel);
+                            break;
+                    }
+
                     //console.log("- --> imageType.fields", imageType.fields);
                     //console.table(imageObj);
                     sceneObj.imageArr.push(imageObj);
@@ -112,6 +164,24 @@ export default {
         });
   }
 };
+
+
+// Map n to range of start1, stop1 to start2, stop2
+function mapRange(n, start1, stop1, start2, stop2) {
+    const newval = ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
+    if (newval) {
+        return newval;
+    }
+    if (start2 < stop2) {
+        return limit(newval, start2, stop2);
+    } else {
+        return limit(newval, stop2, start2);
+    }
+}
+// Keep n between low and high
+function limit(n, low, high) {
+    return Math.max(Math.min(n, high), low);
+}
 </script>
 
 

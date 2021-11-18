@@ -16,6 +16,7 @@
 html,body {
   padding: 0;
   margin: 0;
+  background-color: rgb(39, 39, 39);
 }
 
 #app {
