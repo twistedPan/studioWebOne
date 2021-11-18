@@ -41,6 +41,7 @@ export default {
         //console.log("- --> event", event.target);
         event.target.style.transform = 
             `translate3d(${ele.placement}px, ${ele.position}px, 0px)`;
+        event.target.style.zIndex = ele.zIndex;
     }
   }
 };
@@ -51,7 +52,7 @@ export default {
 <style scoped>
 
 img {
-    width: 40vh;
+    width: 30vh;
 }
 
 .sceneInfo {

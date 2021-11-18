@@ -62,6 +62,7 @@ export default {
       pitch: 80, // Tilting/Neigung in degrees, max = 90°
       bearing: -90, // Rotation um Y
       zoom: 15, // starting zoom
+      interactive: false, // no drag no zoom
     });
     // Displaying a GPX track
     await map.once('load');
@@ -126,18 +127,22 @@ export default {
                         src : imageType.fields.image.fields.file.url,
                         position : "0px",
                         placement : "0px",
+                        zIndex : 0,
                         name : imageType.fields.titel
                     }
 
                     switch (imageType.fields.position) {
                         case "Vordergrund":
-                            imageObj.position = 400;
+                            imageObj.position = 600;
+                            imageObj.zIndex = 12;
                             break;
                         case "Hauptgrund":
-                            imageObj.position = 250;
+                            imageObj.position = 350;
+                            imageObj.zIndex = 8;
                             break;
                         case "Hintergrund":
-                            imageObj.position = 100;
+                            imageObj.position = 250;
+                            imageObj.zIndex = 4;
                             break;
                         default:
                             console.log("Wrong Position for",imageType.fields.titel);
