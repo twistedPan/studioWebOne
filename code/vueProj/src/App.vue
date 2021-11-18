@@ -19,6 +19,9 @@
   text-align: center;
   color: #2c3e50;
 
+  transform-style: preserve-3d;
+  /* transform: rotateX(45deg); */
+
 }
 
 #nav {

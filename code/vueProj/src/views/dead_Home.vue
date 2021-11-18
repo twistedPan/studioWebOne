@@ -44,7 +44,7 @@ function mapRange(n, start1, stop1, start2, stop2) {
 }
 // Keep n between low and high
 function limit(n, low, high) {
-  return Math.max(Math.min(n, high), low);
+    return Math.max(Math.min(n, high), low);
 }
 
 </script>
@@ -55,7 +55,7 @@ function limit(n, low, high) {
 
   transform-style: preserve-3d;
   /* transform: rotateX(45deg); */
-  transform: rotate3d(1, 0, 0, 45deg);
-  transform: skewX(0);
+  /* transform: rotate3d(1, 0, 0, 45deg); */
+  /* transform: skewX(0); */
 }
 </style>

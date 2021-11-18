@@ -1,5 +1,7 @@
 <template>
     <div>
+    <h1>Main Page</h1>
+    <div ref="container" class="map"></div>
     <li v-for="scene in commutes" :key="scene">
       <Commute_CO 
         :id="scene.id"
@@ -7,8 +9,6 @@
         :images="scene.imageArr"
         :mapPoint="scene.location" />
     </li>
-    <h1>Main Page</h1>
-    <div ref="container" class="map"></div>
 </div>
 </template>
 
@@ -36,7 +36,7 @@ export default {
       center: [8.313357, 47.050149], // starting position [lng, lat] 47°03'00.5"N 8°18'48.1"E
       pitch: 120, // Tilting/Neigung in degrees
       bearing: 0, // Rotation um Y
-      zoom: 15, // starting zoom
+      zoom: 25, // starting zoom
     });
     // Displaying a GPX track
     await map.once('load');
@@ -116,24 +116,30 @@ export default {
 
 
 
-<style src='mapbox-gl/dist/mapbox-gl.css'>
-</style><style scoped>
+<style src='mapbox-gl/dist/mapbox-gl.css'></style>
+<style scoped>
 
 .map {
   /* position: absolute; */
+  z-index: 10;
   margin: 0;
   padding: 0;
-  /* margin-left: -480px; */
-  /* margin-right: auto; */
   height: 80vh;
   width: 100%;
   background-color: cadetblue;
   z-index: 0;
 
+/* 3D */
   /* transform-style: preserve-3d;
     transform: rotate3d(1,0,0, 90deg) skewX(0deg); */
   /* translateZ(-150px) */
 
+}
 
+.commute {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    width: 100%;
 }
 </style>

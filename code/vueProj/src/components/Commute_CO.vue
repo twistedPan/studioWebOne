@@ -10,7 +10,7 @@
         
         <li v-for="image in images" :key="image">
             <p>{{image.name}}</p>
-            <p>{{image.position}} and {{image.placement}}</p>
+            <p>{{image.position}} und {{image.placement}}</p>
             <img v-bind:src=image.src />
         </li>
 
@@ -32,8 +32,8 @@ export default {
 
 <style scoped>
 
-commute {
-    position: absolute;
+img {
+    width: 40vh;
 }
 
 </style>
