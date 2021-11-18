@@ -1,8 +1,19 @@
 <template>
     <div class="commute">
-        <p>This is Number {{id}}</p>
-        <p>The Name is {{name}}</p>
-        <p>{{id}} commutes from {{id}} to {{id}}</p>
+        <p>This is Scene Number {{id}}</p>
+        
+        <p>Name of this Scene is <b>{{name}}</b></p>
+        
+        <p>Mappoint is at {{mapPoint.lon}} / {{mapPoint.lat}}</p>
+        
+        <p>Images: </p>
+        
+        <li v-for="image in images" :key="image">
+            <p>{{image.name}}</p>
+            <p>{{image.position}} and {{image.placement}}</p>
+            <img v-bind:src=image.src />
+        </li>
+
     </div>
 </template>
 
@@ -11,25 +22,18 @@
 export default {
   name: "Commute",
   props: {
-    id: String,
+    id: Number,
     name: String,
     images: [],
-    destination: Object
+    mapPoint: Object
   }
 };
 </script>
 
-<!--
+<style scoped>
 
-Image [ 
-  {
-    name: String,
-    src: url,
-    position: string,
-    placement: string
-  },
-  ....
-]
+commute {
+    position: absolute;
+}
 
-
--->
+</style>

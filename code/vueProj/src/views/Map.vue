@@ -1,12 +1,11 @@
 <template>
     <div>
-    <li
-    v-for="commute in commutes" :key="commute.person">
+    <li v-for="scene in commutes" :key="scene">
       <Commute_CO 
-        :id="commute.fields.id"
-        :name="commute.fields.name" 
-        :images="commute.fields.images" 
-        :destination="commute.fields.destination" />
+        :id="scene.id"
+        :name="scene.name" 
+        :images="scene.imageArr"
+        :mapPoint="scene.location" />
     </li>
     <h1>Main Page</h1>
     <div ref="container" class="map"></div>
@@ -84,8 +83,31 @@ export default {
         .then( entries => {
             //console.log("All Entries",entries);
             entries.items.forEach(item => {
-              console.log("- --> item", item);
-              this.commutes.push(item);
+                console.log("- --> item", item);
+
+            // untangle the shit
+                let sceneObj = {
+                    id : item.fields.id,
+                    name : item.fields.name,
+                    imageArr : [],
+                    location : {
+                        lon : item.fields.mappoint.fields.location.lon, 
+                        lat : item.fields.mappoint.fields.location.lat
+                }}
+                
+                item.fields.image.forEach(imageType => {
+                    let imageObj = {
+                        src : imageType.fields.image.fields.file.url,
+                        position : imageType.fields.position,
+                        placement : imageType.fields.placement,
+                        name : imageType.fields.titel
+                    }
+                    //console.log("- --> imageType.fields", imageType.fields);
+                    //console.table(imageObj);
+                    sceneObj.imageArr.push(imageObj);
+                })
+                console.log(sceneObj);
+                this.commutes.push(sceneObj);
             });
         });
   }
