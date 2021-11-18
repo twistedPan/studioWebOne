@@ -3,9 +3,9 @@
     <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
     <div v-for="scene in commutes" :key="scene">
-      <Commute_CO 
+      <Commute_CO
         :id="scene.id"
-        :name="scene.name" 
+        :name="scene.name"
         :images="scene.imageArr"
         :mapPoint="scene.location" />
     </div>
@@ -56,7 +56,7 @@ export default {
       "pk.eyJ1IjoibWh1c20iLCJhIjoiY2tnYzVxbHNnMDV5eTJ4bzdnb3R3NGx2bSJ9.FOXkMmSBQgCQSNCQJwxtYg";
     let map = new mapboxgl.Map({
       container: this.$refs.container, // container ID
-      style: "mapbox://styles/kaszedal/ckvting2h21wl14nc8b9z6oku", // Map Style
+      style: "mapbox://styles/kaszedal/ckw3ivnhz1ch814p4yufi1f0e", // Map Style
       center: [8.313357, 47.050149], // starting position [lng, lat] 47°03'00.5"N 8°18'48.1"E
       pitch: 80, // Tilting/Neigung in degrees, max = 90°
       bearing: -90, // Rotation um Y
@@ -68,7 +68,7 @@ export default {
     map.setFog({
       'range': [-1, 2],
       'color': 'black',
-      'horizon-blend': 0.1
+      'horizon-blend': 0.3
     });
 
     map.on("load", async function() {
@@ -116,10 +116,10 @@ export default {
                     name : item.fields.name,
                     imageArr : [],
                     location : {
-                        lon : item.fields.mappoint.fields.location.lon, 
+                        lon : item.fields.mappoint.fields.location.lon,
                         lat : item.fields.mappoint.fields.location.lat
                 }}
-                
+
                 item.fields.image.forEach(imageType => {
                     let imageObj = {
                         src : imageType.fields.image.fields.file.url,
@@ -165,7 +165,7 @@ export default {
                 console.log("Scene",sceneObj);
 
                 Window.Content.push(sceneObj);
-                
+
                 this.commutes.push(sceneObj);
             });
         });
