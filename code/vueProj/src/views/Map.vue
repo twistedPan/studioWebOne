@@ -31,7 +31,7 @@ export default {
         if (Window.Scrollindex < 0) Window.Scrollindex = 0; // no negatives
         //console.log(Window.Scrollindex);
     },
-    moveScreen: function (event) {
+    /* moveScreen: function (event) {
         //console.log("Move",event);
         let mousePosX = event.screenX;
         if (mousePosX > 1920) mousePosX -= 1920;
@@ -40,11 +40,11 @@ export default {
         let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, 0, 5);
         //let ele_Scene = document.getElementById("scene");
         //console.log("mousePosX", mousePosX, "MapX", mouseXMap, "\nmousePosY", mousePosY,"MapY", mouseYMap);
-        this.$refs.scene.style.transform = `rotate3d(1,0,0, ${mouseYMap}deg) skewX(${mouseXMap}deg)`;
+        //this.$refs.sceneRef.style.transform = `rotate3d(1,0,0, ${mouseYMap}deg) skewX(${mouseXMap}deg)`;
         //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
-    },
+    }, */
     logClick : function (event) {
-        console.log(event.target)
+        //console.log("Clicked",event.target)
     }
   },
   data: function() {
@@ -57,11 +57,11 @@ export default {
       "pk.eyJ1IjoibWh1c20iLCJhIjoiY2tnYzVxbHNnMDV5eTJ4bzdnb3R3NGx2bSJ9.FOXkMmSBQgCQSNCQJwxtYg";
     let map = new mapboxgl.Map({
       container: this.$refs.container, // container ID
-      style: "mapbox://styles/kaszedal/ckw3ivnhz1ch814p4yufi1f0e", // Map Style
+      style: "mapbox://styles/mapbox/streets-v11", // Map Style
       center: [8.313357, 47.050149], // starting position [lng, lat] 47°03'00.5"N 8°18'48.1"E
       pitch: 80, // Tilting/Neigung in degrees, max = 90°
       bearing: -90, // Rotation um Y
-      zoom: 18, // starting zoom
+      zoom: 15, // starting zoom
     });
     // Displaying a GPX track
     await map.once('load');
@@ -131,13 +131,13 @@ export default {
 
                     switch (imageType.fields.position) {
                         case "Vordergrund":
-                            imageObj.position = "100px";
+                            imageObj.position = 400;
                             break;
                         case "Hauptgrund":
-                            imageObj.position = "-50px";
+                            imageObj.position = 250;
                             break;
                         case "Hintergrund":
-                            imageObj.position = "-200px";
+                            imageObj.position = 100;
                             break;
                         default:
                             console.log("Wrong Position for",imageType.fields.titel);
@@ -146,13 +146,13 @@ export default {
 
                     switch (imageType.fields.placement) {
                         case "links":
-                            imageObj.placement = "-400px";
+                            imageObj.placement = -800;
                             break;
                         case "mitte":
-                            imageObj.placement = "0px";
+                            imageObj.placement = -200;
                             break;
                         case "rechts":
-                            imageObj.placement = "400px";
+                            imageObj.placement = 400;
                             break;
                         default:
                             console.log("Wrong Position for",imageType.fields.titel);
@@ -182,7 +182,6 @@ export default {
 <style scoped>
 
 .map {
-    /* position: absolute; */
     z-index: 0;
     margin: 0;
     padding: 0;
@@ -194,18 +193,15 @@ export default {
 #mainScene {
     position: absolute;
     z-index: 1;
-    top: 0;
+    top: 0px;
+    left: 0px;
     width: 100%;
     color: white;
 }
 
-.commute {
-
-    /* 3D */
-    /* transform-style: preserve-3d;
-    transform: rotate3d(1,0,0, 30deg) skewX(0deg) translateZ(-150px); */
-}
-
-
+/* .commute {
+    perspective: 250px;
+    perspective-origin: calc(1920px/2) 800px;
+} */
 
 </style>

@@ -25,11 +25,6 @@ html,body {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-
-    perspective: 250px;
-    perspective-origin: calc(var(--w)/2) 100px;
-    /* x / y => half screen with / sreen height*/
-
 }
 
 /* #nav a {
