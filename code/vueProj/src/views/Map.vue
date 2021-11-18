@@ -1,14 +1,14 @@
 <template>
     <div>
-    <h1>Main Page</h1>
+    <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
-    <li v-for="scene in commutes" :key="scene">
+    <div v-for="scene in commutes" :key="scene">
       <Commute_CO 
         :id="scene.id"
         :name="scene.name" 
         :images="scene.imageArr"
         :mapPoint="scene.location" />
-    </li>
+    </div>
 </div>
 </template>
 
@@ -120,20 +120,13 @@ export default {
 <style scoped>
 
 .map {
-  /* position: absolute; */
-  z-index: 10;
-  margin: 0;
-  padding: 0;
-  height: 80vh;
-  width: 100%;
-  background-color: cadetblue;
-  z-index: 0;
-
-/* 3D */
-  /* transform-style: preserve-3d;
-    transform: rotate3d(1,0,0, 90deg) skewX(0deg); */
-  /* translateZ(-150px) */
-
+    /* position: absolute; */
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    height: 80vh;
+    width: 100%;
+    background-color: cadetblue;
 }
 
 .commute {
@@ -141,5 +134,13 @@ export default {
     z-index: 1;
     top: 0;
     width: 100%;
+    color: white;
+
+    /* 3D */
+    /* transform-style: preserve-3d;
+    transform: rotate3d(1,0,0, 30deg) skewX(0deg) translateZ(-150px); */
 }
+
+
+
 </style>

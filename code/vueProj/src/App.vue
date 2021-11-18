@@ -12,6 +12,12 @@
 
 
 <style>
+
+html,body {
+  padding: 0;
+  margin: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,23 +25,19 @@
   text-align: center;
   color: #2c3e50;
 
-  transform-style: preserve-3d;
-  /* transform: rotateX(45deg); */
+  perspective: 250px;
+  perspective-origin: calc(var(--w)/2) 100px;
+  /* x / y => half screen with / sreen height*/
 
 }
 
-#nav {
-  margin: 0;
-  padding: 0;
-}
-
-#nav a {
+/* #nav a {
   font-weight: bold;
   color: #2c3e50;
 }
 
 #nav a.router-link-exact-active {
   color: #42b983;
-}
+} */
 
 </style>
