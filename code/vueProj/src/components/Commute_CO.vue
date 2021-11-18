@@ -7,15 +7,14 @@
         </div>
         
         <p>Images: </p>
-            <li v-for="image in images" :key="image">
+            <div v-for="image in images" :key="image">
                 <p>{{image.name}}</p>
                 <p>{{image.position}} und {{image.placement}}</p>
                 <img 
                     class="image3D" 
                     v-bind:src=image.src 
-                    
                 />
-            </li>
+            </div>
     </div>
 </template>
 
@@ -46,6 +45,7 @@ img {
 }
 
 .image3D{
+    position: absolute;
     background-color: coral;
     transform-style: preserve-3d;
     transform: rotate3d(1,0,0, 30deg) skewX(0deg) translateZ(-150px);

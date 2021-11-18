@@ -37,8 +37,8 @@ export default {
         let mousePosX = event.screenX;
         if (mousePosX > 1920) mousePosX -= 1920;
         let mousePosY = event.screenY;
-        let mouseXMap = mapRange(mousePosX, 0, 1920, 20, -20);
-        let mouseYMap = mapRange(mousePosY, 0, 1080, 0, 5);
+        let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 20, -20);
+        let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, 0, 5);
         //console.log("mousePosX", mousePosX, "MapX", mouseXMap, "\nmousePosY", mousePosY,"MapY", mouseYMap);
         //this.el.style.transform = `rotate3d(1,0,0, ${45 + mouseYMap}deg) skewX(${mouseXMap}deg)`;
     }
@@ -55,9 +55,9 @@ export default {
       container: this.$refs.container, // container ID
       style: "mapbox://styles/kaszedal/ckvting2h21wl14nc8b9z6oku", // Map Style
       center: [8.313357, 47.050149], // starting position [lng, lat] 47°03'00.5"N 8°18'48.1"E
-      pitch: 120, // Tilting/Neigung in degrees
-      bearing: 0, // Rotation um Y
-      zoom: 25, // starting zoom
+      pitch: 80, // Tilting/Neigung in degrees, max = 90°
+      bearing: -90, // Rotation um Y
+      zoom: 18, // starting zoom
     });
     // Displaying a GPX track
     await map.once('load');
@@ -106,6 +106,7 @@ export default {
             entries.items.forEach(item => {
                 console.log("- --> item", item);
 
+            // all scenes
             // untangle the shit
                 let sceneObj = {
                     id : item.fields.id,
@@ -158,7 +159,10 @@ export default {
                     //console.table(imageObj);
                     sceneObj.imageArr.push(imageObj);
                 })
-                console.log(sceneObj);
+                console.log("Scene",sceneObj);
+
+                Window.Content.push(sceneObj);
+                
                 this.commutes.push(sceneObj);
             });
         });
@@ -166,22 +170,6 @@ export default {
 };
 
 
-// Map n to range of start1, stop1 to start2, stop2
-function mapRange(n, start1, stop1, start2, stop2) {
-    const newval = ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
-    if (newval) {
-        return newval;
-    }
-    if (start2 < stop2) {
-        return limit(newval, start2, stop2);
-    } else {
-        return limit(newval, stop2, start2);
-    }
-}
-// Keep n between low and high
-function limit(n, low, high) {
-    return Math.max(Math.min(n, high), low);
-}
 </script>
 
 
@@ -194,7 +182,7 @@ function limit(n, low, high) {
     z-index: 0;
     margin: 0;
     padding: 0;
-    height: 80vh;
+    height: 100vh;
     width: 100%;
     background-color: cadetblue;
 }
