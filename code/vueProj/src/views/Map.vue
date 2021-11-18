@@ -1,5 +1,5 @@
 <template>
-    <div v-on:wheel="scrolly" v-on:mousemove="moveScreen">
+    <div v-on:wheel="scrolly" v-on:mousemove="moveScreen" v-on:click="logClick">
     <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
     <div v-for="scene in commutes" :key="scene">
@@ -25,15 +25,15 @@ export default {
   methods: {
     scrolly: function (event) {
         //console.log("Event", event);
-
         // check if mouse wheel up or down
         if (event.deltaY < 0) Window.Scrollindex--; // mousewheel up
         else Window.Scrollindex++;                  // mousewheel down
         if (Window.Scrollindex < 0) Window.Scrollindex = 0; // no negatives
-        console.log(Window.Scrollindex);
+        //console.log(Window.Scrollindex);
     },
-    moveScreen: function (event) {
+    /* moveScreen: function (event) {
         //console.log("Move",event);
+        //console.log(this.commutes);
         let mousePosX = event.screenX;
         if (mousePosX > 1920) mousePosX -= 1920;
         let mousePosY = event.screenY;
@@ -41,6 +41,9 @@ export default {
         let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, 0, 5);
         //console.log("mousePosX", mousePosX, "MapX", mouseXMap, "\nmousePosY", mousePosY,"MapY", mouseYMap);
         //this.el.style.transform = `rotate3d(1,0,0, ${45 + mouseYMap}deg) skewX(${mouseXMap}deg)`;
+    }, */
+    logClick : function (event) {
+        console.log(event.target)
     }
   },
   data: function() {
