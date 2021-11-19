@@ -44,13 +44,16 @@ export default {
         if (Window.ScrollIndex != currentIndex) {
           
           // start animations
+          let that = this;
           console.log("Animation: Move-Out start");
-          this.$refs.imagesRef.moveOut();
+          this.$refs.imagesRef.moveOut(function(){
+            that.commutes = [currentContent];
+          });
 
 
           // change content
           //this.$nextTick(function () {
-          this.commutes = [currentContent];
+          //
             //this.commutes = [currentContent];
             /* console.log("New Content:",currentContent.name);
             console.log("Animation: Move-In start");

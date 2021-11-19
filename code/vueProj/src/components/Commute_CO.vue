@@ -51,13 +51,12 @@ export default {
         this.imagesEle.push(element);
 
     },
-    moveOut : function () {
-        console.log("- Animate from ");
+    moveOut : function (callback) {
+        console.log("Animate from ");
         let index = 0;
         this.imagesEle.forEach(ele => {
-            console.log("Test",index);
             let startPos = {x:this.images[index].positionX,y:this.images[index].positionY,z:this.images[index].positionZ}
-            ele.animate(
+            let moveOutAnim = ele.animate(
                 [
                     { transform: `translate3d(${startPos.x}px, ${startPos.y}px, ${startPos.z}px)` },
                     { transform: `translate3d(${startPos.x}px, ${startPos.y + 800}px, ${startPos.z + 300}px)` }
@@ -66,10 +65,12 @@ export default {
                     easing: 'ease-out',
                     duration: 2000
                 });
+            moveOutAnim.onfinish = _=>callback();
+ 
         });
         
     },
-    moveIn : function (comp) {
+    moveIn : function (callback) {
         console.log("- Animate back ");
         let index = 0;
         this.imagesEle.forEach(ele => {
