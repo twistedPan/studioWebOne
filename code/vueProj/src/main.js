@@ -3,8 +3,7 @@ import App from './App.vue'
 import router from './router'
 
 // Scroll index Varaible
-Window.Scrollindex = {};
-Window.Scrollindex = 0;
+Window.ScrollValue = 0;
 
 Window.Content = [];
 

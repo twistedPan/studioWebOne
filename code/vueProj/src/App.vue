@@ -1,5 +1,5 @@
 <template>
-  <div id="main" v-on:mousemove="moveScreen">
+  <div id="main" v-on:mousemove="moveScreen" v-on:wheel="scrollToWin">
     <!-- <router-link to="/">Home</router-link> -->
     <!-- <router-link to="/map">Map</router-link> -->
     <router-view/>
@@ -8,6 +8,28 @@
 
 <script>
 
+export default {
+  //components: {},
+  name: "app",
+  data: function () {
+    return {};
+  },
+  mounted() {
+    console.log(event,"Is now mounted");
+  },
+  methods: {
+    scrollToWin : function (event) {
+      if (event.deltaY < 0) Window.ScrollValue--;               // mousewheel up
+      else Window.ScrollValue++;                                // mousewheel down
+      if (Window.ScrollValue < 0) Window.ScrollValue = 0;       // no negatives
+      console.log("Scroll Delta is at:",Window.ScrollValue);
+
+      let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,200,0,10);
+      let scrollIndex = Math.floor(scrollRange);
+      console.log("- App --> scrollIndex:", scrollIndex, "by", scrollRange);
+    },
+  },
+}
 </script>
 
 

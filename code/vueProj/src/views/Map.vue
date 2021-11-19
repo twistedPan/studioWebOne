@@ -1,5 +1,5 @@
 <template>
-    <div v-on:wheel="scrolly" v-on:mousemove="moveScreen" v-on:click="logClick">
+    <div v-on:wheel="scrolly" v-on:mousemove="moveScreen">
     <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
     <div id="mainScene" ref="sceneRef" v-for="scene in commutes" :key="scene">
@@ -23,14 +23,14 @@ export default {
     Commute_CO
   },
   methods: {
-    scrolly: function (event) {
+    /* scrolly: function (event) {
         //console.log("Event", event);
         // check if mouse wheel up or down
-        if (event.deltaY < 0) Window.Scrollindex--;       // mousewheel up
-        else Window.Scrollindex++;                        // mousewheel down
-        if (Window.Scrollindex < 0) Window.Scrollindex = 0; // no negatives
-        console.log(Window.Scrollindex);
-    },
+        if (event.deltaY < 0) Window.ScrollValue--;       // mousewheel up
+        else Window.ScrollValue++;                        // mousewheel down
+        if (Window.ScrollValue < 0) Window.ScrollValue = 0; // no negatives
+        console.log("Scroll Delta is at:",Window.ScrollValue);
+    }, */
     /* moveScreen: function (event) {
         //console.log("Move",event);
         let mousePosX = event.screenX;
@@ -43,9 +43,6 @@ export default {
         //this.$refs.sceneRef.style.transform = `rotate3d(1,0,0, ${mouseYMap}deg) skewX(${mouseXMap}deg)`;
         //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
     }, */
-    logClick : function (event) {
-        //console.log("Clicked",event.target)
-    }
   },
   data: function() {
     return {
@@ -191,7 +188,7 @@ export default {
     z-index: 0;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 918px; /* 100vh*/
     width: 100%;
     background-color: cadetblue;
 }
