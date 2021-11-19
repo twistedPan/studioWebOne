@@ -59,7 +59,7 @@ export default {
             let moveOutAnim = ele.animate(
                 [
                     { transform: `translate3d(${startPos.x}px, ${startPos.y}px, ${startPos.z}px)` },
-                    { transform: `translate3d(${startPos.x}px, ${startPos.y + 800}px, ${startPos.z + 300}px)` }
+                    { transform: `translate3d(${startPos.x}px, ${startPos.y + 800}px, ${startPos.z + 280}px)` }
                 ], {
                     fill: 'forwards',
                     easing: 'ease-out',
@@ -136,7 +136,7 @@ img {
 
 .image3D{
     position: absolute;
-    background-color: coral;
+    /* background-color: coral; */
     transform-style: preserve-3d;
 
 }

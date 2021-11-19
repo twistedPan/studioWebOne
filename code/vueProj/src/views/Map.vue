@@ -26,6 +26,7 @@ export default {
   },
   methods: {
     scrolly: function (event) {
+        let that = this;
         
         // Add to scroll count
         if (event.deltaY < 0) Window.ScrollValue--;               // mousewheel up
@@ -44,7 +45,7 @@ export default {
         if (Window.ScrollIndex != currentIndex) {
           
           // start animations
-          let that = this;
+          
           console.log("Animation: Move-Out start");
           this.$refs.imagesRef.moveOut(function(){
             that.commutes = [currentContent];
