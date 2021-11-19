@@ -29,7 +29,7 @@ export default {
         if (event.deltaY < 0) Window.Scrollindex--;       // mousewheel up
         else Window.Scrollindex++;                        // mousewheel down
         if (Window.Scrollindex < 0) Window.Scrollindex = 0; // no negatives
-        //console.log(Window.Scrollindex);
+        console.log(Window.Scrollindex);
     },
     /* moveScreen: function (event) {
         //console.log("Move",event);
@@ -109,7 +109,7 @@ export default {
         .then( entries => {
             //console.log("All Entries",entries);
             entries.items.forEach(item => {
-                console.log("- --> item", item);
+              //console.log("- --> item", item,"\nThis is scene nr:",item.fields.id);
 
             // all scenes
             // untangle the shit
@@ -145,7 +145,7 @@ export default {
                             imageObj.zIndex = 4;
                             break;
                         default:
-                            console.log("Wrong Position for",imageType.fields.titel);
+                            console.log("No Position for:",imageType.fields.titel);
                             break;
                     }
 
@@ -160,21 +160,22 @@ export default {
                             imageObj.placement = 400;
                             break;
                         default:
-                            console.log("Wrong Position for",imageType.fields.titel);
+                            console.log("Wrong Placement for:",imageType.fields.titel);
                             break;
                     }
 
-                    //console.log("- --> imageType.fields", imageType.fields);
-                    //console.table(imageObj);
                     sceneObj.imageArr.push(imageObj);
-                })
-                console.log("Scene",sceneObj);
+                });
 
-                Window.Content.push(sceneObj);
-                
-                this.commutes.push(sceneObj);
+                console.log("Scene",sceneObj);  
+
+                Window.Content.push(sceneObj);  // add to content array      
             });
-        });
+
+            Window.Content.sort((a, b) => a.id - b.id); // sort content by ID 0->8
+            
+            this.commutes.push(Window.Content[0]);   // display first content
+      });
   }
 };
 
@@ -204,9 +205,9 @@ export default {
     color: white;
 }
 
-/* .commute {
+.commute {
     perspective: 250px;
     perspective-origin: calc(1920px/2) 800px;
-} */
+}
 
 </style>

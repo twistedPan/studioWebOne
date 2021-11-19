@@ -8,7 +8,6 @@
 
             <img v-for="image in images" :key="image"
                 class="image3D"
-                @mousemove="tiltMe"
                 @load="getImages(image)"
                 v-bind:src=image.src
             />
@@ -34,7 +33,8 @@ export default {
         let mousePosY = event.screenY;
         let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 20, -20);
         let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, -20, 20);
-
+        mouseXMap = mouseYMap;
+        mouseYMap = mouseXMap;
         //event.target.style.transform = `rotate3d(0,1,0, ${30 + mouseXMap}deg)`; /* skewX(${mouseXMap}deg) */
     },
     getImages : function (ele) {
