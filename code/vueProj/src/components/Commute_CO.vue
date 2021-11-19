@@ -52,7 +52,7 @@ export default {
 <style scoped>
 
 img {
-    width: 30vh;
+    width: 10vw;
 }
 
 .sceneInfo {

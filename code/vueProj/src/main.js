@@ -4,6 +4,7 @@ import router from './router'
 
 // Scroll index Varaible
 Window.ScrollValue = 0;
+Window.ScrollIndex = 0;
 
 Window.Content = [];
 

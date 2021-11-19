@@ -17,20 +17,34 @@ import Commute_CO from "@/components/Commute_CO.vue";
 import mapboxgl from "mapbox-gl";
 import { createClient } from "contentful";
 
+let currentIndex = 0;
+
 export default {
   name: "Map",
   components: {
     Commute_CO
   },
   methods: {
-    /* scrolly: function (event) {
-        //console.log("Event", event);
-        // check if mouse wheel up or down
-        if (event.deltaY < 0) Window.ScrollValue--;       // mousewheel up
-        else Window.ScrollValue++;                        // mousewheel down
-        if (Window.ScrollValue < 0) Window.ScrollValue = 0; // no negatives
+    scrolly: function (event) {
+        // Add to scroll count
+        if (event.deltaY < 0) Window.ScrollValue--;               // mousewheel up
+        else Window.ScrollValue++;                                // mousewheel down
+        if (Window.ScrollValue < 0) Window.ScrollValue = 0;       // no negatives
         console.log("Scroll Delta is at:",Window.ScrollValue);
-    }, */
+
+        // Map scroll to array indexes
+        let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,200,0,10);
+        Window.ScrollIndex = Math.floor(scrollRange);
+        console.log("- App --> scrollIndex:", Window.ScrollIndex, "by", scrollRange);
+
+        let currentContent = Window.Content[Window.ScrollIndex];
+        
+        if (Window.ScrollIndex != currentIndex) {
+          this.commutes = [currentContent];
+          console.log("New Content:",currentContent.name);
+        }
+        currentIndex = Window.ScrollIndex;
+    },
     /* moveScreen: function (event) {
         //console.log("Move",event);
         let mousePosX = event.screenX;
@@ -173,6 +187,9 @@ export default {
             
             this.commutes.push(Window.Content[0]);   // display first content
       });
+  },
+  updated : function() {
+    
   }
 };
 

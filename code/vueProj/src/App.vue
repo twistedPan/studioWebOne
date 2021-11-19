@@ -15,18 +15,23 @@ export default {
     return {};
   },
   mounted() {
-    console.log(event,"Is now mounted");
+    console.log("App is now mounted");
   },
   methods: {
     scrollToWin : function (event) {
-      if (event.deltaY < 0) Window.ScrollValue--;               // mousewheel up
-      else Window.ScrollValue++;                                // mousewheel down
-      if (Window.ScrollValue < 0) Window.ScrollValue = 0;       // no negatives
-      console.log("Scroll Delta is at:",Window.ScrollValue);
 
-      let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,200,0,10);
-      let scrollIndex = Math.floor(scrollRange);
-      console.log("- App --> scrollIndex:", scrollIndex, "by", scrollRange);
+        // Add to scroll count
+        if (event.deltaY < 0) Window.ScrollValue--;               // mousewheel up
+        else Window.ScrollValue++;                                // mousewheel down
+        if (Window.ScrollValue < 0) Window.ScrollValue = 0;       // no negatives
+        console.log("Scroll Delta is at:",Window.ScrollValue);
+
+        // Map scroll to array indexes
+        let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,200,0,10);
+        let scrollIndex = Math.floor(scrollRange);
+        console.log("- App --> scrollIndex:", scrollIndex, "by", scrollRange);
+
+        let currentContent = Window.Content[scrollIndex];
     },
   },
 }
