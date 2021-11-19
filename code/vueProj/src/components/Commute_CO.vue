@@ -2,8 +2,8 @@
     <div class="commute">
         <div class="sceneInfo">
             <p>This is Scene Number {{id}}</p>
-            <p>Name of this Scene is <b>{{name}}</b></p>
-            <p>Mappoint is at {{mapPoint[0]}} / {{mapPoint[1]}}</p>
+            <p>Name: <b>{{name}}</b></p>
+            <p>Mappoint is at:<br />{{mapPoint[0]}} / {{mapPoint[1]}}</p>
         </div>
 
             <img v-for="image in images" :key="image"
