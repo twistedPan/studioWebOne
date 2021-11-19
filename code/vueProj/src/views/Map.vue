@@ -26,8 +26,8 @@ export default {
     scrolly: function (event) {
         //console.log("Event", event);
         // check if mouse wheel up or down
-        if (event.deltaY < 0) Window.Scrollindex--; // mousewheel up
-        else Window.Scrollindex++;                  // mousewheel down
+        if (event.deltaY < 0) Window.Scrollindex--;       // mousewheel up
+        else Window.Scrollindex++;                        // mousewheel down
         if (Window.Scrollindex < 0) Window.Scrollindex = 0; // no negatives
         //console.log(Window.Scrollindex);
     },
