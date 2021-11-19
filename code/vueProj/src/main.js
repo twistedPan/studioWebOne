@@ -6,6 +6,8 @@ import router from './router'
 Window.ScrollValue = 0;
 Window.ScrollIndex = 0;
 Window.Content = [];
+Window.Images = [];
+
 
 createApp(App).use(router).mount('#app')
 
@@ -18,7 +20,7 @@ Window.Placement = {
 }
 
 
-Window.ScrollSpeed = 20;
+Window.ScrollSpeed = 80;
 
 
 // Funtions

@@ -3,7 +3,7 @@
     <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
     <div id="mainScene" ref="sceneRef" v-for="scene in commutes" :key="scene">
-      <Commute_CO 
+      <Commute_CO ref="imagesRef"
         :id="scene.id"
         :name="scene.name" 
         :images="scene.imageArr"
@@ -26,33 +26,45 @@ export default {
   },
   methods: {
     scrolly: function (event) {
+        
         // Add to scroll count
         if (event.deltaY < 0) Window.ScrollValue--;               // mousewheel up
         else Window.ScrollValue++;                                // mousewheel down
         if (Window.ScrollValue < 0) Window.ScrollValue = 0;       // no negatives
-        console.log("Scroll Delta is at:",Window.ScrollValue);
+        //console.log("Scroll Delta is at:",Window.ScrollValue);
 
         // Map scroll to array indexes
         let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,Window.ScrollSpeed,0,9);
         Window.ScrollIndex = Math.floor(scrollRange);
-        console.log("- App --> scrollIndex:", Window.ScrollIndex, "by", scrollRange);
+        //console.log("- App --> scrollIndex:", Window.ScrollIndex, "by", scrollRange);
 
         let currentContent = Window.Content[Window.ScrollIndex];
         
-        // Content change
+        // Content change if scrollIndex changes value
         if (Window.ScrollIndex != currentIndex) {
           
           // start animations
-          
+          console.log("Animation: Move-Out start");
+          this.$refs.imagesRef.moveOut();
+
 
           // change content
-          this.$nextTick(function () {
-            this.commutes = [currentContent];
-            console.log("New Content:",currentContent.name);
-          });
+          //this.$nextTick(function () {
+          this.commutes = [currentContent];
+            //this.commutes = [currentContent];
+            /* console.log("New Content:",currentContent.name);
+            console.log("Animation: Move-In start");
+            this.$refs.imagesRef.moveIn(); */
+          //});
         }
+        else { // ??? none
+          }
 
+      
+
+        // set or refresh current index
         currentIndex = Window.ScrollIndex;
+
     },
     moveScreen: function (event) {
         //console.log("Move",event);
@@ -77,8 +89,9 @@ export default {
       "pk.eyJ1IjoibWh1c20iLCJhIjoiY2tnYzVxbHNnMDV5eTJ4bzdnb3R3NGx2bSJ9.FOXkMmSBQgCQSNCQJwxtYg";
     let map = new mapboxgl.Map({
       container: this.$refs.container, // container ID
-      style: "mapbox://styles/mapbox/streets-v11", // Map Style
+      style: "mapbox://styles/kaszedal/ckw3ivnhz1ch814p4yufi1f0e", // Map Style
       center: [8.313357, 47.050149], // starting position [lng, lat] 47°03'00.5"N 8°18'48.1"E
+      //center: Window.Content[Window.ScrollIndex].location, // starting position [lng, lat] 47°03'00.5"N 8°18'48.1"E
       pitch: 89, // Tilting/Neigung in degrees, max = 90°
       bearing: 0, // Rotation um Y
       zoom: 21, // starting zoom
@@ -118,6 +131,8 @@ export default {
         }
       });
     });
+    
+    console.log("Mounted Map");
   },
   created: function() {
     let client = createClient({
@@ -137,33 +152,35 @@ export default {
                     id : item.fields.id,
                     name : item.fields.name,
                     imageArr : [],
-                    location : {
-                        lon : item.fields.mappoint.fields.location.lon, 
-                        lat : item.fields.mappoint.fields.location.lat
-                    },
+                    location : [
+                        item.fields.mappoint.fields.location.lon, 
+                        item.fields.mappoint.fields.location.lat
+                    ],
                 }
                 
                 item.fields.image.forEach(imageType => {
                     let imageObj = {
                         src : imageType.fields.image.fields.file.url,
-                        position : "0px",
-                        placement : "0px",
+                        positionX : 0,
+                        positionY : 0,
+                        positionZ : 0,
                         zIndex : 0,
                         name : imageType.fields.titel,
                         type : imageType.fields.position
                     }
 
+                    // set Image Position on Y-Axis & Z-Index Property
                     switch (imageType.fields.position) {
                         case "Vordergrund":
-                            imageObj.position = 600;
+                            imageObj.positionY = 600;
                             imageObj.zIndex = 12;
                             break;
                         case "Hauptgrund":
-                            imageObj.position = 350;
+                            imageObj.positionY = 350;
                             imageObj.zIndex = 8;
                             break;
                         case "Hintergrund":
-                            imageObj.position = 0;
+                            imageObj.positionY = 0;
                             imageObj.zIndex = 4;
                             break;
                         default:
@@ -171,18 +188,19 @@ export default {
                             break;
                     }
 
+                    // set Image Position on X-Axis
                     switch (imageType.fields.placement) {
                         case "links":
-                            imageObj.placement = Window.Placement.Links;
+                            imageObj.positionX = Window.Placement.Links;
                             break;
                         case "mitte":
-                          imageObj.placement = Window.Placement.Mitte;
+                          imageObj.positionX = Window.Placement.Mitte;
                             break;
                         case "rechts":
-                            imageObj.placement = Window.Placement.Rechts;
+                            imageObj.positionX = Window.Placement.Rechts;
                             break;
                         case "ohne":
-                            imageObj.placement = 0;
+                            imageObj.positionX = 0;
                             break;
                         default:
                             console.log("Wrong Placement for:",imageType.fields.titel);
@@ -191,18 +209,25 @@ export default {
 
                     sceneObj.imageArr.push(imageObj);
                 });
-                
-                console.log("Scene",sceneObj);  
+
+                //console.log("Scene",sceneObj);  
 
                 Window.Content.push(sceneObj);  // add to content array      
             });
 
             Window.Content.sort((a, b) => a.id - b.id); // sort content by ID 0->8
-            
+            console.log("Content  loaded");
             this.commutes.push(Window.Content[0]);   // display first content
       });
   },
-  updated : function() {}
+  updated : function() {
+    //let mapPoint = Window.Content[Window.ScrollIndex].location;
+
+    
+    console.log("Update Map");
+    
+
+  }
 };
 
 
@@ -236,5 +261,37 @@ export default {
     perspective: 250px;
     perspective-origin: calc(1920px/2) 800px;
 }
+
+
+.moveOut {
+  animation: moveOut 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes moveOut {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
 
 </style>

@@ -16,9 +16,11 @@ export default {
   },
   mounted() {
     console.log("App is now mounted");
-    Window.Content = [];
-    Window.ScrollValue = 0;
+
+    // Reset Globals
     Window.ScrollIndex = 0;
+    Window.ScrollValue = 0;
+    Window.Content = [];
   },
   methods: {
     /* scrollToWin : function (event) {

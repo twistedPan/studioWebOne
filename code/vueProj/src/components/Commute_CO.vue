@@ -3,13 +3,13 @@
         <div class="sceneInfo">
             <p>This is Scene Number {{id}}</p>
             <p>Name of this Scene is <b>{{name}}</b></p>
-            <p>Mappoint is at {{mapPoint.lon}} / {{mapPoint.lat}}</p>
+            <p>Mappoint is at {{mapPoint[0]}} / {{mapPoint[1]}}</p>
         </div>
 
             <img v-for="image in images" :key="image"
                 class="image3D"
                 v-bind:id=image.type
-                @load="getImages(image)"
+                @load="setImages(image)"
                 v-bind:src=image.src
             />
     </div>
@@ -17,6 +17,7 @@
 
 
 <script>
+
 export default {
   name: "Commute",
   el: "commutes",
@@ -28,23 +29,69 @@ export default {
     type: String,
   },
   methods : {
-    /* tiltMe : function (event) {
+    tiltMe : function (event) {
         //console.log("event",event);
-        let mousePosX = event.screenX;
+        /* let mousePosX = event.screenX;
         if (mousePosX > 1920) mousePosX -= 1920;
         let mousePosY = event.screenY;
         let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 20, -20);
-        let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, -20, 20);
-        
+        let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, -20, 20); */
         //event.target.style.transform = `rotate3d(0,1,0, ${30 + mouseXMap}deg)`; // skewX(${mouseXMap}deg)
-    }, */
-    getImages : function (ele) {
-        //console.log("- --> event", event.target);
-        event.target.style.transform = 
-            `translate3d(${ele.placement}px, ${ele.position}px, 0px)`;
-        event.target.style.zIndex = ele.zIndex;
-    }
-  }
+    },
+    setImages : function (comp) {
+        //console.log("Image Set");
+        let element = event.target;
+        //console.log("event", event.target, comp);
+
+        element.style.transform = 
+            `translate3d(${comp.positionX}px, ${comp.positionY}px, ${comp.positionZ}px)`;
+        element.style.zIndex = comp.zIndex;
+
+        // store image element
+        this.imagesEle.push(element);
+
+    },
+    moveOut : function () {
+        console.log("- Animate from ");
+        let index = 0;
+        this.imagesEle.forEach(ele => {
+            console.log("Test",index);
+            let startPos = {x:this.images[index].positionX,y:this.images[index].positionY,z:this.images[index].positionZ}
+            ele.animate(
+                [
+                    { transform: `translate3d(${startPos.x}px, ${startPos.y}px, ${startPos.z}px)` },
+                    { transform: `translate3d(${startPos.x}px, ${startPos.y + 800}px, ${startPos.z + 300}px)` }
+                ], {
+                    fill: 'forwards',
+                    easing: 'ease-out',
+                    duration: 2000
+                });
+        });
+        
+    },
+    moveIn : function (comp) {
+        console.log("- Animate back ");
+        let index = 0;
+        this.imagesEle.forEach(ele => {
+            let startPos = {x:this.images[index].positionX,y:this.images[index].positionY,z:this.images[index].positionZ}
+            ele.animate(
+                [
+                    { transform: `translate3d(${startPos.x}px, ${startPos.y + 1500}px, ${startPos.z + 800}px)` },
+                    { transform: `translate3d(${startPos.x}px, ${startPos.y}px, ${startPos.z}px)` }
+                ], {
+                    fill: 'forwards',
+                    easing: 'ease-in',
+                    duration: 5000
+                });
+        });
+
+    },
+  },
+  data: function() {
+    return {
+      imagesEle: [],
+    };
+  },
 };
 
 </script>
@@ -83,6 +130,7 @@ img {
     z-index: 15;
     width: 300px;
     color: white;
+    background-color: gray;
 }
 
 .image3D{
