@@ -16,9 +16,12 @@ export default {
   },
   mounted() {
     console.log("App is now mounted");
+    Window.Content = [];
+    Window.ScrollValue = 0;
+    Window.ScrollIndex = 0;
   },
   methods: {
-    scrollToWin : function (event) {
+    /* scrollToWin : function (event) {
 
         // Add to scroll count
         if (event.deltaY < 0) Window.ScrollValue--;               // mousewheel up
@@ -27,12 +30,12 @@ export default {
         console.log("Scroll Delta is at:",Window.ScrollValue);
 
         // Map scroll to array indexes
-        let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,200,0,10);
+        let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,100,0,9);
         let scrollIndex = Math.floor(scrollRange);
         console.log("- App --> scrollIndex:", scrollIndex, "by", scrollRange);
 
         let currentContent = Window.Content[scrollIndex];
-    },
+    }, */
   },
 }
 </script>
@@ -44,6 +47,7 @@ html,body {
     padding: 0;
     margin: 0;
     background-color: rgb(39, 39, 39);
+    overflow: hidden;
 }
 
 #app {

@@ -33,30 +33,39 @@ export default {
         console.log("Scroll Delta is at:",Window.ScrollValue);
 
         // Map scroll to array indexes
-        let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,200,0,10);
+        let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,Window.ScrollSpeed,0,9);
         Window.ScrollIndex = Math.floor(scrollRange);
         console.log("- App --> scrollIndex:", Window.ScrollIndex, "by", scrollRange);
 
         let currentContent = Window.Content[Window.ScrollIndex];
         
+        // Content change
         if (Window.ScrollIndex != currentIndex) {
-          this.commutes = [currentContent];
-          console.log("New Content:",currentContent.name);
+          
+          // start animations
+          
+
+          // change content
+          this.$nextTick(function () {
+            this.commutes = [currentContent];
+            console.log("New Content:",currentContent.name);
+          });
         }
+
         currentIndex = Window.ScrollIndex;
     },
-    /* moveScreen: function (event) {
+    moveScreen: function (event) {
         //console.log("Move",event);
         let mousePosX = event.screenX;
         if (mousePosX > 1920) mousePosX -= 1920;
         let mousePosY = event.screenY;
-        let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 20, -20);
+        let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 5, -5);
         let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, 0, 5);
         //let ele_Scene = document.getElementById("scene");
         //console.log("mousePosX", mousePosX, "MapX", mouseXMap, "\nmousePosY", mousePosY,"MapY", mouseYMap);
         //this.$refs.sceneRef.style.transform = `rotate3d(1,0,0, ${mouseYMap}deg) skewX(${mouseXMap}deg)`;
         //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
-    }, */
+    },
   },
   data: function() {
     return {
@@ -70,9 +79,9 @@ export default {
       container: this.$refs.container, // container ID
       style: "mapbox://styles/mapbox/streets-v11", // Map Style
       center: [8.313357, 47.050149], // starting position [lng, lat] 47°03'00.5"N 8°18'48.1"E
-      pitch: 80, // Tilting/Neigung in degrees, max = 90°
-      bearing: -90, // Rotation um Y
-      zoom: 15, // starting zoom
+      pitch: 89, // Tilting/Neigung in degrees, max = 90°
+      bearing: 0, // Rotation um Y
+      zoom: 21, // starting zoom
       interactive: false, // no drag no zoom
     });
     // Displaying a GPX track
@@ -131,7 +140,8 @@ export default {
                     location : {
                         lon : item.fields.mappoint.fields.location.lon, 
                         lat : item.fields.mappoint.fields.location.lat
-                }}
+                    },
+                }
                 
                 item.fields.image.forEach(imageType => {
                     let imageObj = {
@@ -139,7 +149,8 @@ export default {
                         position : "0px",
                         placement : "0px",
                         zIndex : 0,
-                        name : imageType.fields.titel
+                        name : imageType.fields.titel,
+                        type : imageType.fields.position
                     }
 
                     switch (imageType.fields.position) {
@@ -152,7 +163,7 @@ export default {
                             imageObj.zIndex = 8;
                             break;
                         case "Hintergrund":
-                            imageObj.position = 250;
+                            imageObj.position = 0;
                             imageObj.zIndex = 4;
                             break;
                         default:
@@ -162,13 +173,16 @@ export default {
 
                     switch (imageType.fields.placement) {
                         case "links":
-                            imageObj.placement = -800;
+                            imageObj.placement = Window.Placement.Links;
                             break;
                         case "mitte":
-                            imageObj.placement = -200;
+                          imageObj.placement = Window.Placement.Mitte;
                             break;
                         case "rechts":
-                            imageObj.placement = 400;
+                            imageObj.placement = Window.Placement.Rechts;
+                            break;
+                        case "ohne":
+                            imageObj.placement = 0;
                             break;
                         default:
                             console.log("Wrong Placement for:",imageType.fields.titel);
@@ -177,7 +191,7 @@ export default {
 
                     sceneObj.imageArr.push(imageObj);
                 });
-
+                
                 console.log("Scene",sceneObj);  
 
                 Window.Content.push(sceneObj);  // add to content array      
@@ -188,9 +202,7 @@ export default {
             this.commutes.push(Window.Content[0]);   // display first content
       });
   },
-  updated : function() {
-    
-  }
+  updated : function() {}
 };
 
 
@@ -215,8 +227,9 @@ export default {
     z-index: 1;
     top: 0px;
     left: 0px;
+    /* 
     width: 100%;
-    color: white;
+    color: white; */
 }
 
 .commute {

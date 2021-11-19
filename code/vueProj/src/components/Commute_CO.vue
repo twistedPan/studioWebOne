@@ -8,6 +8,7 @@
 
             <img v-for="image in images" :key="image"
                 class="image3D"
+                v-bind:id=image.type
                 @load="getImages(image)"
                 v-bind:src=image.src
             />
@@ -23,20 +24,20 @@ export default {
     id: Number,
     name: String,
     images: Array,
-    mapPoint: Object
+    mapPoint: Object,
+    type: String,
   },
   methods : {
-    tiltMe : function (event) {
+    /* tiltMe : function (event) {
         //console.log("event",event);
         let mousePosX = event.screenX;
         if (mousePosX > 1920) mousePosX -= 1920;
         let mousePosY = event.screenY;
         let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 20, -20);
         let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, -20, 20);
-        mouseXMap = mouseYMap;
-        mouseYMap = mouseXMap;
-        //event.target.style.transform = `rotate3d(0,1,0, ${30 + mouseXMap}deg)`; /* skewX(${mouseXMap}deg) */
-    },
+        
+        //event.target.style.transform = `rotate3d(0,1,0, ${30 + mouseXMap}deg)`; // skewX(${mouseXMap}deg)
+    }, */
     getImages : function (ele) {
         //console.log("- --> event", event.target);
         event.target.style.transform = 
@@ -55,10 +56,33 @@ img {
     width: 10vw;
 }
 
+#Hintergrund {
+    top: 0%;
+    left: 0%;
+    width: 1920px;
+    height: 1080px;
+    /*margin-top: -960px; /* Half the height */
+    /*margin-left: -54px; /* Half the width */
+    
+    /* Top, Right, Bottom, Left - Boarder */
+    clip: rect(0px,1920px,600px,0px);
+}
+
+#Hauptgrund {
+    width: 15vw;
+}
+
+#Vordergrund {
+    width: 10vw;
+}
+
 .sceneInfo {
     position: absolute;
     top: 0;
     left: 10px;
+    z-index: 15;
+    width: 300px;
+    color: white;
 }
 
 .image3D{

@@ -5,11 +5,23 @@ import router from './router'
 // Scroll index Varaible
 Window.ScrollValue = 0;
 Window.ScrollIndex = 0;
-
 Window.Content = [];
 
 createApp(App).use(router).mount('#app')
 
+
+// Vertical placement of Images
+Window.Placement = {
+    Links : 430,
+    Mitte : 860,
+    Rechts: 1290,
+}
+
+
+Window.ScrollSpeed = 20;
+
+
+// Funtions
 
 // Global Functions
 Window.Util = {
