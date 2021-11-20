@@ -52,41 +52,87 @@ export default {
 
     },
     moveOut : function (callback) {
-        console.log("Animate from ");
         let index = 0;
+
         this.imagesEle.forEach(ele => {
+            let moveOutAnim = null;
             let startPos = {x:this.images[index].positionX,y:this.images[index].positionY,z:this.images[index].positionZ}
-            let moveOutAnim = ele.animate(
-                [
-                    { transform: `translate3d(${startPos.x}px, ${startPos.y}px, ${startPos.z}px)` },
-                    { transform: `translate3d(${startPos.x}px, ${startPos.y + 800}px, ${startPos.z + 280}px)` }
-                ], {
-                    fill: 'forwards',
-                    easing: 'ease-out',
-                    duration: 2000
-                });
-            moveOutAnim.onfinish = _=>callback();
- 
+            console.log("--> StartPos of",this.images[index].name, startPos, this.images[index].type);
+            
+            if (this.images[index].type != "Hintergrund"){
+                moveOutAnim = ele.animate(
+                    [
+                        {
+                            transform: `translate3d(${startPos.x}px, ${startPos.y}px, ${startPos.z}px)`,
+                            opacity: 1},
+                        {
+                            transform: `translate3d(${startPos.x}px, ${startPos.y + 800}px, ${startPos.z + 280}px)`,
+                            opacity: 0}
+                    ], {
+                        fill: 'forwards',
+                        easing: 'ease-out',
+                        duration: 2000
+                    });
+                moveOutAnim.onfinish = _=>callback();
+
+            } else if (this.images[index].type === "Hintergrund") {
+                moveOutAnim = ele.animate(
+                    [
+                        {opacity: 1},
+                        {opacity: 0}
+                    ], {
+                        fill: 'forwards',
+                        easing: 'ease-out',
+                        duration: 2000
+                    });
+                moveOutAnim.onfinish = _=>callback();
+            }
+            
+            index++;
         });
-        
     },
     moveIn : function (callback) {
         console.log("- Animate back ");
         let index = 0;
+        
         this.imagesEle.forEach(ele => {
+            let moveInAnim = null;
             let startPos = {x:this.images[index].positionX,y:this.images[index].positionY,z:this.images[index].positionZ}
-            ele.animate(
-                [
-                    { transform: `translate3d(${startPos.x}px, ${startPos.y + 1500}px, ${startPos.z + 800}px)` },
-                    { transform: `translate3d(${startPos.x}px, ${startPos.y}px, ${startPos.z}px)` }
-                ], {
-                    fill: 'forwards',
-                    easing: 'ease-in',
-                    duration: 5000
-                });
-        });
+            //console.log("--> StartPos of",this.name, startPos, " - goal",);
+            
+            if (this.images[index].type != "Hintergrund"){
+                moveInAnim = ele.animate(
+                    [
+                        {
+                            transform: `translate3d(${startPos.x}px, ${startPos.y + -1000}px, ${startPos.z + 400}px)`, 
+                            opacity: 0},
+                        {
+                            transform: `translate3d(${startPos.x}px, ${startPos.y}px, ${startPos.z}px)`, 
+                            opacity: 1}
+                    ], {
+                        fill: 'forwards',
+                        easing: 'ease-in',
+                        duration: 5000
+                    });
+                moveInAnim.onfinish = _=>callback();    
 
+            } else if (this.images[index].type === "Hintergrund") {
+                moveInAnim = ele.animate(
+                    [
+                        {opacity: 0},
+                        {opacity: 1}
+                    ], {
+                        fill: 'forwards',
+                        easing: 'ease-in',
+                        duration: 5000
+                    });
+                moveInAnim.onfinish = _=>callback();  
+            }
+
+            index++;
+        });
     },
+
   },
   data: function() {
     return {
@@ -109,19 +155,20 @@ img {
     left: 0%;
     width: 1920px;
     height: 1080px;
-    /*margin-top: -960px; /* Half the height */
-    /*margin-left: -54px; /* Half the width */
+    opacity: 1;
     
-    /* Top, Right, Bottom, Left - Boarder */
-    clip: rect(0px,1920px,600px,0px);
+    /* Top, Right, Bottom, Left - Border */
+    /* clip: rect(0px,1920px,600px,0px); */
 }
 
 #Hauptgrund {
     width: 15vw;
+    opacity: 1;
 }
 
 #Vordergrund {
     width: 10vw;
+    opacity: 1;
 }
 
 .sceneInfo {

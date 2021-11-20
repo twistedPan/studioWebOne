@@ -45,10 +45,14 @@ export default {
         if (Window.ScrollIndex != currentIndex) {
           
           // start animations
-          
-          console.log("Animation: Move-Out start");
+          console.log("Animation: Move-Out Start");
           this.$refs.imagesRef.moveOut(function(){
-            that.commutes = [currentContent];
+            // changes commutes when animation is over
+            //console.log("Animation: Move-In Start");
+            that.$refs.imagesRef.moveIn(function(){
+              that.commutes = [currentContent];
+            })
+            //console.log("--> that.commutes", that.commutes[0].imageArr);
           });
 
 
@@ -228,7 +232,7 @@ export default {
     //let mapPoint = Window.Content[Window.ScrollIndex].location;
 
     
-    console.log("Update Map");
+    //console.log("Update Map");
     
 
   }
