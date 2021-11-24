@@ -1,5 +1,5 @@
 <template>
-    <div v-on:wheel="scrolly" v-on:mousemove="moveScreen">
+    <div v-on:wheel="scrolly" v-on:mousemove="moveScreen" v-on:click="changeScene">
     <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
     <div id="mainScene" ref="sceneRef" v-for="scene in commutes" :key="scene">
@@ -86,6 +86,12 @@ export default {
         //this.$refs.sceneRef.style.transform = `rotate3d(1,0,0, ${mouseYMap}deg) skewX(${mouseXMap}deg)`;
         //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
     },
+    changeScene: function (event) {
+      console.log("Content",Window.ClickIndex);
+      if (Window.ClickIndex == Window.Content.lenght) Window.ClickIndex = 0;
+      this.commutes = [Window.Content[Window.ClickIndex]];
+      Window.ClickIndex++;
+    }
   },
   data: function() {
     return {
@@ -152,7 +158,7 @@ export default {
         .then( entries => {
             //console.log("All Entries",entries);
             entries.items.forEach(item => {
-              console.log("- --> item", item,"\nThis is scene nr:",item.fields.id);
+              //console.log("- --> item", item,"\nThis is scene nr:",item.fields.id);
 
             // all scenes
             // untangle the shit

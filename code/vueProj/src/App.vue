@@ -20,12 +20,10 @@ export default {
     // Reset Globals
     Window.ScrollIndex = 0;
     Window.ScrollValue = 0;
+    Window.ClickIndex = 0;
     Window.Content = [];
   },
   methods: {
-    changeScene: function (event) {
-      console.log(event);
-    }
     /* scrollToWin : function (event) {
 
         // Add to scroll count
