@@ -2,7 +2,7 @@
     <div v-on:wheel="scrolly" v-on:mousemove="moveScreen" v-on:click="changeScene">
     <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
-    <div id="mainScene" ref="sceneRef" v-for="scene in commutes" :key="scene">
+    <div id="mainScene" ref="sceneRef" v-for="scene in Commutes" :key="scene">
       <Commute_CO ref="imagesRef"
         :id="scene.id"
         :name="scene.name" 
@@ -242,8 +242,8 @@ export default {
     z-index: 0;
     margin: 0;
     padding: 0;
-    height: 918px; /* 100vh*/
-    width: 100%;
+    height: 100vh; /* 100vh*/
+    width: 100vw;
     background-color: cadetblue;
 }
 
