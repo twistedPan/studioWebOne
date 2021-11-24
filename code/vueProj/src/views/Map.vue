@@ -88,7 +88,7 @@ export default {
     },
     changeScene: function (event) {
       console.log("Content",Window.ClickIndex);
-      if (Window.ClickIndex == Window.Content.lenght) Window.ClickIndex = 0;
+      if (Window.ClickIndex >= Window.Content.length) Window.ClickIndex = 0;
       this.commutes = [Window.Content[Window.ClickIndex]];
       Window.ClickIndex++;
     }
