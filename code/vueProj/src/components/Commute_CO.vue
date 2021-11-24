@@ -1,5 +1,5 @@
 <template>
-  <div class="commute">
+  <div v-bind:id="id" class="commute" v-bind:style="{ display: display }">
     <div class="sceneInfo">
       <p>This is Scene Number {{ id }}</p>
       <p>
@@ -31,6 +31,7 @@ export default {
     mapPoint: Object,
     type: String,
     story: String,
+    display : String
   },
   methods: {
     /* tiltMe: function (event) {
@@ -57,7 +58,7 @@ export default {
     },
     moveImage: function (value) {
       let index = 0;
-      //console.log("Value:", value);
+      //console.log("Move Value:", value, this);
       
       this.imagesEle.forEach((ele) => {
         let type = ele.id;
@@ -66,32 +67,19 @@ export default {
           y: this.images[index].positionY,
           z: this.images[index].positionZ,
         };
-
+        
         switch (type) {
           case "Hintergrund":
-            ele.style.transform = `translate3d(
-              ${startPos.x}vw, 
-              ${startPos.y}vh, 
-              ${startPos.z + value}px)`;
-              //console.log("Ele:",ele.id);
+            ele.style.transform = `translate3d(${startPos.x}vw, ${startPos.y}vh, ${startPos.z + value}px)`;
             break;
           case "Hintergrund Element":
-            ele.style.transform = `translate3d(
-              ${startPos.x}vw, 
-              ${startPos.y}vh, 
-              ${startPos.z + value * 1.5}px)`;
+            ele.style.transform = `translate3d(${startPos.x}vw,${startPos.y}vh,${startPos.z + value * 1.5}px)`;
             break;
           case "Hauptgrund":
-            ele.style.transform = `translate3d(
-              ${startPos.x}vw, 
-              ${startPos.y}vh, 
-              ${startPos.z + value * 2}px)`;
+            ele.style.transform = `translate3d(${startPos.x}vw,${startPos.y}vh,${startPos.z + value * 2}px)`;
             break;
           case "Vordergrund":
-            ele.style.transform = `translate3d(
-              ${startPos.x}vw, 
-              ${startPos.y}vh, 
-              ${startPos.z + value * 3}px)`;
+            ele.style.transform = `translate3d(${startPos.x}vw,${startPos.y}vh,${startPos.z + value * 3}px)`;
             break;
 
           default:
@@ -102,100 +90,22 @@ export default {
         index++;
       });
     },
-    moveOut: function (callback) {
-      /* 
-      let index = 0;
-
+    moveIn: function (callback, speed = 2000) {
+      //console.log("Ease In");
+      
       this.imagesEle.forEach((ele) => {
-        let moveOutAnim = null;
-        let startPos = {
-          x: this.images[index].positionX,
-          y: this.images[index].positionY,
-          z: this.images[index].positionZ,
-        };
-        //console.log("--> StartPos of",this.images[index].name, startPos, this.images[index].type);
-
-        if (this.images[index].type != "Hintergrund") {
-          moveOutAnim = ele.animate(
-            [
-              {
-                transform: `translate3d(${startPos.x}vw, ${startPos.y}vh, ${startPos.z}px)`,
-                opacity: 1,
-              },
-              {
-                transform: `translate3d(${startPos.x}vw, ${
-                  startPos.y + 800
-                }vh, ${startPos.z + 280}px)`,
-                opacity: 0,
-              },
-            ],
-            {
-              fill: "forwards",
-              easing: "ease-out",
-              duration: 1500,
-            }
-          );
-          moveOutAnim.onfinish = () => callback();
-        } else if (this.images[index].type === "Hintergrund") {
-          moveOutAnim = ele.animate([{ opacity: 1 }, { opacity: 0 }], {
-            fill: "forwards",
-            easing: "ease-out",
-            duration: 1500,
-          });
-          moveOutAnim.onfinish = () => callback();
-        }
-
-        index++;
+        
+        let moveInAnim = ele.animate(
+          [
+            {opacity: 0},
+            {opacity: 1},
+          ],
+          {fill: "forwards", easing: "ease-in",duration: speed,}
+        );
+        // callback -> Animation is over
+        moveInAnim.onfinish = (_) => callback();
+        
       });
-      */
-    },
-    moveIn: function (callback) {
-      /*
-      //console.log("- Animate back ");
-      let index = 0;
-
-      this.imagesEle.forEach((ele) => {
-        let moveInAnim = null;
-        let startPos = {
-          x: this.images[index].positionX,
-          y: this.images[index].positionY,
-          z: this.images[index].positionZ,
-        };
-        //console.log("--> StartPos of",this.name, startPos, " - goal",);
-
-        if (this.images[index].type != "Hintergrund") {
-          moveInAnim = ele.animate(
-            [
-              {
-                transform: `translate3d(${startPos.x}vw, ${
-                  startPos.y + -1000
-                }vh, ${startPos.z + 400}px)`,
-                opacity: 0,
-              },
-              {
-                transform: `translate3d(${startPos.x}vw, ${startPos.y}vh, ${startPos.z}px)`,
-                opacity: 1,
-              },
-            ],
-            {
-              fill: "forwards",
-              easing: "ease-in",
-              duration: 3000,
-            }
-          );
-          moveInAnim.onfinish = (_) => callback();
-        } else if (this.images[index].type === "Hintergrund") {
-          moveInAnim = ele.animate([{ opacity: 0 }, { opacity: 1 }], {
-            fill: "forwards",
-            easing: "ease-in",
-            duration: 3000,
-          });
-          moveInAnim.onfinish = (_) => callback();
-        }
-
-        index++;
-      });
-      */
     }, 
   },
   data: function () {
@@ -221,7 +131,7 @@ img {
   opacity: 1;
 
   /* Top, Right, Bottom, Left - Border */
-  /* clip: rect(0px,1920px,600px,0px); */
+  clip: rect(0px,1920px,600px,0px);
 }
 
 #Hauptgrund {

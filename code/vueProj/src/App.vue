@@ -12,7 +12,9 @@ export default {
   //components: {},
   name: "app",
   data: function () {
-    return {};
+    return {
+      sceneContent: [],
+    };
   },
   mounted() {
     console.log("App is now mounted");
