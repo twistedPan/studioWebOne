@@ -1,0 +1,11 @@
+.storyText {
+    position: absolute;
+    z-index: 10;
+    color: red;
+    width: 50vw;
+    font-size: 40px;
+  
+    /* Temporär*/
+    top: 80vh;
+    left: 20vw;
+  }

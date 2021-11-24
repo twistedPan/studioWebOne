@@ -207,6 +207,7 @@ export default {
 </script>
 
 
+<style src='../styles/storytext.css'></style>
 <style scoped>
 img {
   width: 10vw;
@@ -237,18 +238,6 @@ img {
   position: absolute;
   /* background-color: coral; */
   transform-style: preserve-3d;
-}
-
-.storyText {
-  position: absolute;
-  z-index: 10;
-  color: red;
-  width: 50vw;
-  font-size: 40px;
-
-  /* Temporär*/
-  top: 80vh;
-  left: 20vw;
 }
 
 .sceneInfo {
