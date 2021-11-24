@@ -49,16 +49,16 @@ export default {
 
       element.style.transform = `translate3d(${comp.positionX}vw, ${comp.positionY}vh, ${comp.positionZ}px)`;
       element.style.zIndex = comp.zIndex;
+      element.style.width = `${comp.scale}vw`;
 
       // store image element
       this.imagesEle.push(element);
     },
     moveImage: function (value) {
       let index = 0;
-      console.log("Value:", value);
-
+      //console.log("Value:", value);
+      
       this.imagesEle.forEach((ele) => {
-        //console.log("Type:", ele.id);
         let type = ele.id;
         let startPos = {
           x: this.images[index].positionX,
@@ -72,24 +72,25 @@ export default {
               ${startPos.x}vw, 
               ${startPos.y}vh, 
               ${startPos.z + value}px)`;
+              //console.log("Ele:",ele.id);
             break;
           case "Hintergrund Element":
             ele.style.transform = `translate3d(
               ${startPos.x}vw, 
               ${startPos.y}vh, 
-              ${startPos.z + value}px)`;
+              ${startPos.z + value * 1.5}px)`;
             break;
           case "Hauptgrund":
             ele.style.transform = `translate3d(
               ${startPos.x}vw, 
               ${startPos.y}vh, 
-              ${startPos.z + value*2}px)`;
+              ${startPos.z + value * 2}px)`;
             break;
           case "Vordergrund":
             ele.style.transform = `translate3d(
               ${startPos.x}vw, 
               ${startPos.y}vh, 
-              ${startPos.z + value*3}px)`;
+              ${startPos.z + value * 3}px)`;
             break;
 
           default:
@@ -209,8 +210,8 @@ img {
 #Hintergrund {
   top: 0%;
   left: 0%;
-  width: 1920px;
-  height: 1080px;
+  width: 100vw;
+  height: 100vh;
   opacity: 1;
 
   /* Top, Right, Bottom, Left - Border */
@@ -218,12 +219,12 @@ img {
 }
 
 #Hauptgrund {
-  width: 15vw;
+  /* width: 15vw; */
   opacity: 1;
 }
 
 #Vordergrund {
-  width: 10vw;
+  /* width: 10vw; */
   opacity: 1;
 }
 

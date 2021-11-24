@@ -27,18 +27,19 @@ export default {
   },
   methods: {
     scrolly: function (event) {
-        let that = this;
-        
+
         // Add to scroll count
-        if (event.deltaY < 0) Window.ScrollValue-=4;               // mousewheel up
-        else Window.ScrollValue+=4;                                // mousewheel down
-        if (Window.ScrollValue < 0) Window.ScrollValue = 0;       // no negatives
-        //console.log("Scroll Delta is at:",Window.ScrollValue);
+        if (event.deltaY < 0) Window.ScrollValue -= Window.ScrollSpeed; // mousewheel up
+        else Window.ScrollValue += Window.ScrollSpeed; // mousewheel down
+        if (Window.ScrollValue < 0) Window.ScrollValue = 0; // no negatives
+
 
         // Map scroll to array indexes
         let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,Window.ScrollChange,0,9);
         Window.ScrollIndex = Math.floor(scrollRange);
         //console.log("- App --> scrollIndex:", Window.ScrollIndex, "by", scrollRange);
+
+        console.log("Scroll Value is at:",Window.ScrollValue,"Index:",Window.ScrollIndex);
 
         let currentContent = Window.Content[Window.ScrollIndex];
         
@@ -46,7 +47,7 @@ export default {
 
         // Content change if scrollIndex changes value
         if (Window.ScrollIndex != currentIndex) {
-          
+          Window.ScrollValue = 0;
           // change with animations
           /* console.log("Animation: Move-Out Start");
           this.$refs.imagesRef.moveOut(function(){
@@ -87,9 +88,10 @@ export default {
         //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
     },
     changeScene: function (event) {
-      console.log("Content",Window.ClickIndex);
+      //console.log("Content",Window.ClickIndex);
       if (Window.ClickIndex >= Window.Content.length) Window.ClickIndex = 0;
       this.commutes = [Window.Content[Window.ClickIndex]];
+      Window.ScrollIndex = Window.ClickIndex;
       Window.ClickIndex++;
     }
   },
@@ -116,7 +118,7 @@ export default {
     // Add fog
     map.setFog({
       'range': [-1, 2],
-      'color': 'black',
+      'color': 'white',
       'horizon-blend': 0.1
     });
 
@@ -158,7 +160,7 @@ export default {
         .then( entries => {
             //console.log("All Entries",entries);
             entries.items.forEach(item => {
-              //console.log("- --> item", item,"\nThis is scene nr:",item.fields.id);
+              console.log("- --> item", item,"\nThis is scene nr:",item.fields.id);
 
             // all scenes
             // untangle the shit
@@ -181,7 +183,8 @@ export default {
                         positionZ : 0,
                         zIndex : 0,
                         name : imageType.fields.titel,
-                        type : imageType.fields.position
+                        type : imageType.fields.position,
+                        scale : imageType.fields.scale
                     }
 
                     // set Image Position on Y-Axis & Z-Index Property
@@ -193,6 +196,10 @@ export default {
                         case "Hauptgrund":
                             imageObj.positionZ = 5;
                             imageObj.zIndex = 8;
+                            break;
+                        case "Hintergrund Element":
+                            imageObj.positionZ = 4;
+                            imageObj.zIndex = 6;
                             break;
                         case "Hintergrund":
                             imageObj.positionZ = 0;
@@ -213,7 +220,7 @@ export default {
 
             Window.Content.sort((a, b) => a.id - b.id); // sort content by ID 0->8
             console.log("Content  loaded");
-            this.commutes.push(Window.Content[1]);   // display first content
+            this.commutes.push(Window.Content[6]);   // display first content
       });
   },
   updated : function() {
