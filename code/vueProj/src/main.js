@@ -20,7 +20,7 @@ Window.Placement = {
 }
 
 
-Window.ScrollSpeed = 80;
+Window.ScrollChange = 120 * 9;
 
 
 // Funtions
@@ -46,3 +46,6 @@ Window.Util = {
 function limit(n, low, high) {
     return Math.max(Math.min(n, high), low);
 }
+
+
+

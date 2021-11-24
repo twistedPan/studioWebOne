@@ -1,5 +1,5 @@
 <template>
-  <div id="main" v-on:mousemove="moveScreen" v-on:wheel="scrollToWin">
+  <div id="main" v-on:mousemove="moveScreen">
     <!-- <router-link to="/">Home</router-link> -->
     <!-- <router-link to="/map">Map</router-link> -->
     <router-view/>
@@ -23,6 +23,9 @@ export default {
     Window.Content = [];
   },
   methods: {
+    changeScene: function (event) {
+      console.log(event);
+    }
     /* scrollToWin : function (event) {
 
         // Add to scroll count

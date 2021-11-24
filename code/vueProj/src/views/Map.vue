@@ -7,7 +7,8 @@
         :id="scene.id"
         :name="scene.name" 
         :images="scene.imageArr"
-        :mapPoint="scene.location" />
+        :mapPoint="scene.location" 
+        :story="scene.story" />
     </div>
 </div>
 </template>
@@ -29,23 +30,25 @@ export default {
         let that = this;
         
         // Add to scroll count
-        if (event.deltaY < 0) Window.ScrollValue--;               // mousewheel up
-        else Window.ScrollValue++;                                // mousewheel down
+        if (event.deltaY < 0) Window.ScrollValue-=4;               // mousewheel up
+        else Window.ScrollValue+=4;                                // mousewheel down
         if (Window.ScrollValue < 0) Window.ScrollValue = 0;       // no negatives
         //console.log("Scroll Delta is at:",Window.ScrollValue);
 
         // Map scroll to array indexes
-        let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,Window.ScrollSpeed,0,9);
+        let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,Window.ScrollChange,0,9);
         Window.ScrollIndex = Math.floor(scrollRange);
         //console.log("- App --> scrollIndex:", Window.ScrollIndex, "by", scrollRange);
 
         let currentContent = Window.Content[Window.ScrollIndex];
         
+        this.$refs.imagesRef.moveImage(Window.ScrollValue);
+
         // Content change if scrollIndex changes value
         if (Window.ScrollIndex != currentIndex) {
           
-          // start animations
-          console.log("Animation: Move-Out Start");
+          // change with animations
+          /* console.log("Animation: Move-Out Start");
           this.$refs.imagesRef.moveOut(function(){
             // changes commutes when animation is over
             //console.log("Animation: Move-In Start");
@@ -53,20 +56,17 @@ export default {
               that.commutes = [currentContent];
             })
             //console.log("--> that.commutes", that.commutes[0].imageArr);
-          });
+          }); */
 
-
+          
           // change content
-          //this.$nextTick(function () {
-          //
-            //this.commutes = [currentContent];
-            /* console.log("New Content:",currentContent.name);
-            console.log("Animation: Move-In start");
-            this.$refs.imagesRef.moveIn(); */
-          //});
+          this.commutes = [currentContent];
+          console.log("New Content:",currentContent.name);
+          
         }
-        else { // ??? none
-          }
+        else { 
+          // ??? none
+        }
 
       
 
@@ -152,7 +152,7 @@ export default {
         .then( entries => {
             //console.log("All Entries",entries);
             entries.items.forEach(item => {
-              //console.log("- --> item", item,"\nThis is scene nr:",item.fields.id);
+              console.log("- --> item", item,"\nThis is scene nr:",item.fields.id);
 
             // all scenes
             // untangle the shit
@@ -164,13 +164,14 @@ export default {
                         item.fields.mappoint.fields.location.lon, 
                         item.fields.mappoint.fields.location.lat
                     ],
+                    story : item.fields.story,
                 }
                 
                 item.fields.image.forEach(imageType => {
                     let imageObj = {
                         src : imageType.fields.image.fields.file.url,
-                        positionX : 0,
-                        positionY : 0,
+                        positionX : imageType.fields.xAxis,
+                        positionY : imageType.fields.yAxis,
                         positionZ : 0,
                         zIndex : 0,
                         name : imageType.fields.titel,
@@ -180,38 +181,19 @@ export default {
                     // set Image Position on Y-Axis & Z-Index Property
                     switch (imageType.fields.position) {
                         case "Vordergrund":
-                            imageObj.positionY = 600;
+                            imageObj.positionZ = 10;
                             imageObj.zIndex = 12;
                             break;
                         case "Hauptgrund":
-                            imageObj.positionY = 350;
+                            imageObj.positionZ = 5;
                             imageObj.zIndex = 8;
                             break;
                         case "Hintergrund":
-                            imageObj.positionY = 0;
+                            imageObj.positionZ = 0;
                             imageObj.zIndex = 4;
                             break;
                         default:
                             console.log("No Position for:",imageType.fields.titel);
-                            break;
-                    }
-
-                    // set Image Position on X-Axis
-                    switch (imageType.fields.placement) {
-                        case "links":
-                            imageObj.positionX = Window.Placement.Links;
-                            break;
-                        case "mitte":
-                          imageObj.positionX = Window.Placement.Mitte;
-                            break;
-                        case "rechts":
-                            imageObj.positionX = Window.Placement.Rechts;
-                            break;
-                        case "ohne":
-                            imageObj.positionX = 0;
-                            break;
-                        default:
-                            console.log("Wrong Placement for:",imageType.fields.titel);
                             break;
                     }
 
@@ -225,16 +207,13 @@ export default {
 
             Window.Content.sort((a, b) => a.id - b.id); // sort content by ID 0->8
             console.log("Content  loaded");
-            this.commutes.push(Window.Content[0]);   // display first content
+            this.commutes.push(Window.Content[1]);   // display first content
       });
   },
   updated : function() {
     //let mapPoint = Window.Content[Window.ScrollIndex].location;
-
-    
     //console.log("Update Map");
-    
-
+  
   }
 };
 
