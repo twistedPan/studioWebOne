@@ -33,21 +33,22 @@ export default {
     story: String,
   },
   methods: {
-    tiltMe: function (event) {
+    /* tiltMe: function (event) {
       //console.log("event",event);
-      /* let mousePosX = event.screenX;
+        let mousePosX = event.screenX;
         if (mousePosX > 1920) mousePosX -= 1920;
         let mousePosY = event.screenY;
         let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 20, -20);
-        let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, -20, 20); */
+        let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, -20, 20);
       //event.target.style.transform = `rotate3d(0,1,0, ${30 + mouseXMap}deg)`; // skewX(${mouseXMap}deg)
-    },
+    }, */
     setImages: function (comp) {
       //console.log("Image Set");
       let element = event.target;
       //console.log("event", event.target, comp);
 
-      element.style.transform = `translate3d(${comp.positionX}vw, ${comp.positionY}vh, ${comp.positionZ}px)`;
+      element.style.transform = 
+        `translate3d(${comp.positionX}vw, ${comp.positionY}vh, ${comp.positionZ}px)`;
       element.style.zIndex = comp.zIndex;
       element.style.width = `${comp.scale}vw`;
 
@@ -102,6 +103,7 @@ export default {
       });
     },
     moveOut: function (callback) {
+      /* 
       let index = 0;
 
       this.imagesEle.forEach((ele) => {
@@ -133,20 +135,22 @@ export default {
               duration: 1500,
             }
           );
-          moveOutAnim.onfinish = (_) => callback();
+          moveOutAnim.onfinish = () => callback();
         } else if (this.images[index].type === "Hintergrund") {
           moveOutAnim = ele.animate([{ opacity: 1 }, { opacity: 0 }], {
             fill: "forwards",
             easing: "ease-out",
             duration: 1500,
           });
-          moveOutAnim.onfinish = (_) => callback();
+          moveOutAnim.onfinish = () => callback();
         }
 
         index++;
       });
+      */
     },
     moveIn: function (callback) {
+      /*
       //console.log("- Animate back ");
       let index = 0;
 
@@ -191,7 +195,8 @@ export default {
 
         index++;
       });
-    },
+      */
+    }, 
   },
   data: function () {
     return {

@@ -23,23 +23,7 @@ export default {
     Window.ClickIndex = 0;
     Window.Content = [];
   },
-  methods: {
-    /* scrollToWin : function (event) {
-
-        // Add to scroll count
-        if (event.deltaY < 0) Window.ScrollValue--;               // mousewheel up
-        else Window.ScrollValue++;                                // mousewheel down
-        if (Window.ScrollValue < 0) Window.ScrollValue = 0;       // no negatives
-        console.log("Scroll Delta is at:",Window.ScrollValue);
-
-        // Map scroll to array indexes
-        let scrollRange = Window.Util.mapRange(Window.ScrollValue,0,100,0,9);
-        let scrollIndex = Math.floor(scrollRange);
-        console.log("- App --> scrollIndex:", scrollIndex, "by", scrollRange);
-
-        let currentContent = Window.Content[scrollIndex];
-    }, */
-  },
+  methods: {},
 }
 </script>
 
@@ -60,14 +44,5 @@ html,body {
     text-align: center;
     color: #2c3e50;
 }
-
-/* #nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-} */
 
 </style>

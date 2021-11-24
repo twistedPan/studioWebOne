@@ -1,8 +1,7 @@
 <template>
     <div v-on:wheel="scrolly" v-on:mousemove="moveScreen" v-on:click="changeScene">
-    <!-- <h1>Main Page</h1> -->
     <div ref="container" class="map"></div>
-    <div id="mainScene" ref="sceneRef" v-for="scene in Commutes" :key="scene">
+    <div id="mainScene" ref="sceneRef" v-for="scene in commutes" :key="scene">
       <Commute_CO ref="imagesRef"
         :id="scene.id"
         :name="scene.name" 
@@ -27,6 +26,7 @@ export default {
   },
   methods: {
     scrolly: function (event) {
+        let that = this;
 
         // Add to scroll count
         if (event.deltaY < 0) Window.ScrollValue -= Window.ScrollSpeed; // mousewheel up
@@ -87,7 +87,7 @@ export default {
         //this.$refs.sceneRef.style.transform = `rotate3d(1,0,0, ${mouseYMap}deg) skewX(${mouseXMap}deg)`;
         //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
     },
-    changeScene: function (event) {
+    changeScene: function () {
       //console.log("Content",Window.ClickIndex);
       if (Window.ClickIndex >= Window.Content.length) Window.ClickIndex = 0;
       this.commutes = [Window.Content[Window.ClickIndex]];
@@ -160,7 +160,7 @@ export default {
         .then( entries => {
             //console.log("All Entries",entries);
             entries.items.forEach(item => {
-              console.log("- --> item", item,"\nThis is scene nr:",item.fields.id);
+              console.log("Scene NR:",item.fields.id,"-> Data", item);
 
             // all scenes
             // untangle the shit
@@ -216,17 +216,13 @@ export default {
                 //console.log("Scene",sceneObj);  
 
                 Window.Content.push(sceneObj);  // add to content array      
+                console.log("--> SceneObj", sceneObj);
             });
 
             Window.Content.sort((a, b) => a.id - b.id); // sort content by ID 0->8
             console.log("Content  loaded");
-            this.commutes.push(Window.Content[6]);   // display first content
+            this.commutes.push(Window.Content[0]);   // display first content
       });
-  },
-  updated : function() {
-    //let mapPoint = Window.Content[Window.ScrollIndex].location;
-    //console.log("Update Map");
-  
   }
 };
 
