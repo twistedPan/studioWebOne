@@ -68,7 +68,7 @@ export default {
        */
 
       // Content change if scrollIndex changes value
-      if (this.scrollIndex != currentIndex) 
+      if (this.scrollIndex != currentIndex && this.scrollIndex > currentIndex) 
       {
         Array.from(this.$refs.sceneRef.children).forEach(ele => {ele.style.display = "none";});
         this.scroll_Z = 0;
