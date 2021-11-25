@@ -18,6 +18,7 @@
         :display="scene.display"
       />
     </div>
+    <!-- <audio src="" hidden /> -->
   </div>
 </template>
 
@@ -78,7 +79,13 @@ export default {
           that.$refs.sceneRef.children[that.scrollIndex].style.display = "block";
           
           console.log("New Content:", currentContent.name);
-        
+          
+          // currentContent.sound // sound file is here
+          /* let aduioEle = document.getElementsByTagName("audio");
+          console.log("currentContent.sound",currentContent.sound);
+          aduioEle.src = currentContent.sound;
+          aduioEle.play(); */
+
           // Ease In -> new Index
           that.$refs[currentImageRef].moveIn(function(){
             // set or refresh current index
@@ -146,6 +153,7 @@ export default {
         that.$refs.sceneRef.children[that.clickIndex].style.display = "block";
         
         let currentImageRef = "imageRel-"+that.clickIndex;
+        
         // Ease In -> new Index
         that.$refs[currentImageRef].moveIn(function(){
           
@@ -191,7 +199,12 @@ export default {
           mapZoom: item.fields.mappoint.fields.zoom,
           story: item.fields.story,
           display: "none",
+          sound: null
         };
+
+        /* if (typeof item.fields.sound != "undefined"){
+          sceneObj.sound = item.fields.sound[0].fields.file.url;
+        } */
         
         let index = 0;
         item.fields.image.forEach((imageType) => {
@@ -244,6 +257,12 @@ export default {
       console.log("Content  loaded");
       //console.log("Scene Content:", this.sceneContent, this.sceneContent.length);
 
+      // currentContent.sound // sound file is here
+          /* let aduioEle = document.getElementsByTagName("audio")[0];
+          console.log("- --> client.getEntries --> aduioEle", aduioEle);
+          console.log("currentContent.sound",this.sceneContent[0].sound);
+          aduioEle.src = this.sceneContent[0].sound;
+          aduioEle.play(); */
     });
   },
   mounted: async function () {
