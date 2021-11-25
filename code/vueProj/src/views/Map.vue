@@ -173,7 +173,7 @@ export default {
     client.getEntries({ content_type: "scene" }).then((entries) => {
       //console.log("All Entries",entries);
       entries.items.forEach((item) => {
-        console.log("Scene NR:",item.fields.id,"-> Data", item);
+        //console.log("Scene NR:",item.fields.id,"-> Data", item);
 
         // all scenes
         // untangle the shit
@@ -239,7 +239,7 @@ export default {
       Window.Content.sort((a, b) => a.id - b.id); // sort content by ID 0->8
       this.sceneContent.sort((a, b) => a.id - b.id); // sort content by ID 0->8
       console.log("Content  loaded");
-      console.log("Scene Content:", this.sceneContent, this.sceneContent.length);
+      //console.log("Scene Content:", this.sceneContent, this.sceneContent.length);
 
     });
   },
