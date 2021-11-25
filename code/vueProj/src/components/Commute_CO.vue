@@ -143,11 +143,15 @@ img {
 }
 
 #Hauptgrund {
+  top: 15vh;
+  left: 18vw;
   /* width: 15vw; */
   opacity: 1;
 }
 
 #Vordergrund {
+  top: 15vh;
+  left: 18vw;
   /* width: 10vw; */
   opacity: 1;
 }
