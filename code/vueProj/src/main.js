@@ -24,16 +24,9 @@ Window.Images = [];
 
 createApp(App).use(router).mount('#app')
 
-
-// Vertical placement of Images
-Window.Placement = {
-    Links : 430,
-    Mitte : 860,
-    Rechts: 1290,
-}
-
-
+// size of scroll steps 
 Window.ScrollSpeed = 4;
+// scroll step in each scene // one scene * scene count
 Window.ScrollChange = 160 * 8;
 
 // Funtions

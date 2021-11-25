@@ -91,8 +91,8 @@ export default {
           that.$refs[currentImageRef].moveIn(function(){
             // set or refresh current index
             currentIndex = that.scrollIndex;
-          })
-        });
+          }, 1200)
+        }, 2000);
         
       } else {
         
