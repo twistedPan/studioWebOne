@@ -7,7 +7,7 @@
   height: 100vh;
   position: absolute;
   z-index: 100;
-  opacity: 0%;
+  opacity: 0;
   animation: letters 7s;
   display: flex;
   align-items: center;
@@ -16,20 +16,21 @@
 
 @keyframes letters {
   from {
-    opacity: 100%;
+    opacity: 1;
   }
 
   75% {
-    opacity: 100%;
+    opacity: 1;
   }
 
   to {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
 .storyText {
   font-family: 'Cinzel';
+  z-index: 90;
   color: #191100;
   width: 70vw;
   font-size: 5vh;
