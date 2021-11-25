@@ -7,7 +7,7 @@
       </p>
       <p>Mappoint is at:<br />{{ mapPoint[0] }} / {{ mapPoint[1] }}</p>
     </div>
-    <p class="storyText">StoryText: {{ story }}</p>
+    <p class="storyText">{{ story }}</p>
     <img
       v-for="image in images"
       :key="image"
