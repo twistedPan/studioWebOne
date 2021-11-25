@@ -12,6 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  filter: blur(0px);
 }
 
 @keyframes letters {
