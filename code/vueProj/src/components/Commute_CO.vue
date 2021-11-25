@@ -131,7 +131,7 @@ img {
   opacity: 1;
 
   /* Top, Right, Bottom, Left - Border */
-  clip: rect(0px,1920px,600px,0px);
+  /* clip: rect(0px,1920px,600px,0px); */
 }
 
 #Hauptgrund {
