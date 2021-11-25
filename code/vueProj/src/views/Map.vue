@@ -75,6 +75,8 @@ export default {
         this.mapMove(function() {
           console.log("Map finished Moving, Index",that.scrollIndex);
           that.$refs.sceneRef.children[that.scrollIndex].style.display = "block";
+          
+          console.log("New Content:", currentContent.name);
         
           // Ease In -> new Index
           that.$refs[currentImageRef].moveIn(function(){
@@ -83,7 +85,6 @@ export default {
           })
         });
         
-        console.log("New Content:", currentContent.name);
       } else {
         
         console.log("that.scrollIndex",that.scrollIndex);
@@ -162,7 +163,7 @@ export default {
       
       setTimeout(callback,easeSpeed*1.5);
       
-      }
+    }
   },
   created: function () {
     let client = createClient({
@@ -172,7 +173,7 @@ export default {
     client.getEntries({ content_type: "scene" }).then((entries) => {
       //console.log("All Entries",entries);
       entries.items.forEach((item) => {
-        //console.log("Scene NR:",item.fields.id,"-> Data", item);
+        console.log("Scene NR:",item.fields.id,"-> Data", item);
 
         // all scenes
         // untangle the shit
@@ -192,6 +193,7 @@ export default {
 
         item.fields.image.forEach((imageType) => {
           let imageObj = {
+            id: imageType.fields.id,
             src: imageType.fields.image.fields.file.url,
             positionX: imageType.fields.xAxis,
             positionY: imageType.fields.yAxis,
@@ -225,6 +227,7 @@ export default {
               break;
           }
 
+          //console.log("Image Object:",sceneObj.id,imageObj.name);
           sceneObj.imageArr.push(imageObj);
         });
 
@@ -322,7 +325,7 @@ export default {
   position: absolute;
   display: block;
   perspective: 250px;
-  perspective-origin: calc(1920px / 2) 800px;
+  perspective-origin: 860px 200px;
   opacity: 1;
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div v-bind:id="id" class="commute" v-bind:style="{ display: display }">
     <div class="sceneInfo">
-      <p>This is Scene Number {{ id }}</p>
       <p>
         Name: <b>{{ name }}</b>
       </p>
@@ -15,6 +14,7 @@
       v-bind:id="image.type"
       @load="setImages(image)"
       v-bind:src="image.src"
+      :data-imageId=image.id
     />
   </div>
 </template>
@@ -54,23 +54,32 @@ export default {
       element.style.width = `${comp.scale}vw`;
 
       // store image element
+      //console.log("Element in Scene:",element.id.split('-')[1], comp.name);
       this.imagesEle.push(element);
+
     },
     moveImage: function (value) {
-      let index = 0;
       //console.log("Move Value:", value, this);
       
       this.imagesEle.forEach((ele) => {
-        let type = ele.id;
-        let startPos = {
-          x: this.images[index].positionX,
-          y: this.images[index].positionY,
-          z: this.images[index].positionZ,
-        };
+        let type = ele.id.split('-')[0];
+        let imageID = ele.getAttribute("data-imageId");
+
+        console.log("imageID", imageID, ele, "thisImage",this.images[imageID]);
         
+        let thisImage = this.images[imageID];
+        let startPos = {
+          x: thisImage.positionX,
+          y: thisImage.positionY,
+          z: thisImage.positionZ,
+        };
+
+        //console.log("Ele in move:",ele, "\nthis",thisImage);
+
         switch (type) {
           case "Hintergrund":
             ele.style.transform = `translate3d(${startPos.x}vw, ${startPos.y}vh, ${startPos.z + value}px)`;
+            //console.log("Hintergrund Ele",ele);
             break;
           case "Hintergrund Element":
             ele.style.transform = `translate3d(${startPos.x}vw,${startPos.y}vh,${startPos.z + value * 1.5}px)`;
@@ -87,7 +96,6 @@ export default {
             break;
         }
 
-        index++;
       });
     },
     moveIn: function (callback, speed = 2000) {
@@ -107,6 +115,9 @@ export default {
         
       });
     }, 
+    getByType : function (array,id) {
+      return 
+    }
   },
   data: function () {
     return {
