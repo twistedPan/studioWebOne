@@ -7,7 +7,9 @@
       </p>
       <p>Mappoint is at:<br />{{ mapPoint[0] }} / {{ mapPoint[1] }}</p>
     </div>
-    <p class="storyText">{{ story }}</p>
+    <div class="storyContainer">
+      <p class="storyText">{{ story }}</p>
+    </div>
     <img
       v-for="image in images"
       :key="image"
@@ -48,7 +50,7 @@ export default {
       let element = event.target;
       //console.log("event", event.target, comp);
 
-      element.style.transform = 
+      element.style.transform =
         `translate3d(${comp.positionX}vw, ${comp.positionY}vh, ${comp.positionZ}px)`;
       element.style.zIndex = comp.zIndex;
       element.style.width = `${comp.scale}vw`;
@@ -59,7 +61,7 @@ export default {
     moveImage: function (value) {
       let index = 0;
       //console.log("Move Value:", value, this);
-      
+
       this.imagesEle.forEach((ele) => {
         let type = ele.id;
         let startPos = {
@@ -67,7 +69,7 @@ export default {
           y: this.images[index].positionY,
           z: this.images[index].positionZ,
         };
-        
+
         switch (type) {
           case "Hintergrund":
             ele.style.transform = `translate3d(${startPos.x}vw, ${startPos.y}vh, ${startPos.z + value}px)`;
@@ -92,9 +94,9 @@ export default {
     },
     moveIn: function (callback, speed = 2000) {
       //console.log("Ease In");
-      
+
       this.imagesEle.forEach((ele) => {
-        
+
         let moveInAnim = ele.animate(
           [
             {opacity: 0},
@@ -104,9 +106,9 @@ export default {
         );
         // callback -> Animation is over
         moveInAnim.onfinish = (_) => callback();
-        
+
       });
-    }, 
+    },
   },
   data: function () {
     return {
