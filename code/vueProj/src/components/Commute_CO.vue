@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:id="id" class="commute" v-bind:style="{ display: display }">
+  <div id="scenes" class="commute" v-bind:style="{ display: display }">
     <div class="sceneInfo">
       <p>
         Name: <b>{{ name }}</b>
@@ -18,7 +18,6 @@
       v-bind:src="image.src"
       :data-imageId=image.id
     />
-    <div class="yellow"></div>
   </div>
 </template>
 
@@ -126,7 +125,6 @@ export default {
 </script>
 
 
-<style src='../styles/storytext.css'></style>
 <style scoped>
 img {
   width: 10vw;
@@ -165,6 +163,7 @@ img {
 
 .sceneInfo {
   position: absolute;
+  display: none;
   top: 0;
   left: 10px;
   z-index: 15;

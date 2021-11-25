@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-on:wheel="scrolly"
-    v-on:mousemove="moveScreen"
-    v-on:click="changeScene"
-  >
+  <div v-on:wheel="scrolly" v-on:click="changeScene">
     <div ref="container" class="map"></div>
     <div id="scene" ref="sceneRef">
       <Commute_CO 
@@ -65,6 +61,7 @@ export default {
        * 
        * Wiederholen
        */
+
       // Content change if scrollIndex changes value
       if (this.scrollIndex != currentIndex) 
       {
@@ -130,6 +127,7 @@ export default {
       //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
     },
     changeScene: function () {
+      // xxx remove this function
       let that = this;
       
       this.clickIndex++;

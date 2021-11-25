@@ -6,6 +6,7 @@
   </div>
 </template>
 
+
 <script>
 
 export default {
@@ -30,6 +31,7 @@ export default {
 </script>
 
 
+<style src='./styles/storytext.css'></style>
 <style>
 
 html,body {
@@ -37,6 +39,7 @@ html,body {
     margin: 0;
     background-color: rgb(39, 39, 39);
     overflow: hidden;
+    /* scroll-behavior: smooth; */
 }
 
 #app {
