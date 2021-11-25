@@ -64,6 +64,6 @@
   width: 100vw;
   position: absolute;
   z-index: 20;
-  opacity: 27%;
+  opacity: 0.27;
   margin: 0 auto;
 }
