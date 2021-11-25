@@ -151,14 +151,16 @@ export default {
 
     },
     mapMove: function (callback, easeSpeed = 4000) {
-
+      console.log("Map Points:",
+        "rotation",this.sceneContent[this.scrollIndex].mapRotation,
+        "zoom",this.sceneContent[this.scrollIndex].mapZoom);
       let nextLocation = this.sceneContent[this.scrollIndex].location;
       //console.log("Change Locations",nextLocation[0],nextLocation[1]);
       //this.mapBox.flyTo({center: nextLocation,essential: true,});
       this.mapBox.easeTo({
         center: nextLocation, 
-        bearing: this.sceneContent[this.scrollIndex].mapRotation,
-        zoom: this.sceneContent[this.scrollIndex].zoom, 
+        bearing: 89,
+        zoom: 21, 
         duration: easeSpeed});
       
       setTimeout(callback,easeSpeed*1.5);
