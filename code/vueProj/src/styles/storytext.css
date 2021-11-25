@@ -1,14 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Sen:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comforter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap');
+
+.storyContainer {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 100;
+  opacity: 0%;
+  animation: letters 7s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes letters {
+  from {
+    opacity: 100%;
+  }
+
+  75% {
+    opacity: 100%;
+  }
+
+  to {
+    opacity: 0%;
+  }
+}
 
 .storyText {
-  font-family: 'Sen';
+  font-family: 'Cinzel';
   color: black;
-  width: 50vw;
-  font-size: 40px;
-  text-shadow: 0 0 10px #fff;
-  text-align: center;
-  position: relative;
-  z-index: 10;
-  left: 25vw;
-  top: 80vh;
+  width: 70vw;
+  font-size: 5vh;
+  position: absolute;
+}
+
+.image3D {
+  filter: blur(0px);
+  animation: blur 7s;
+}
+
+@keyframes blur {
+  from {
+    filter: blur(12px);
+  }
+
+  75% {
+    filter: blur(12px);
+  }
+
+  to {
+    filter: blur(0px);
+  }
+}
+
+.yellow {
+  color: '#ffdd33';
+  height: 100vh;
+  width: 100vw;
+  /* mix-blend-mode: multiply; */
+  position: absolute;
+  z-index: 20;
+  margin: 0 auto;
 }
