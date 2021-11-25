@@ -47,4 +47,12 @@ html,body {
     color: #2c3e50;
 }
 
+
+.mapboxgl-ctrl-logo {
+  display: none!important;
+}
+.mapboxgl-ctrl-bottom-right {
+  display: none!important;
+}
+
 </style>

@@ -67,7 +67,7 @@ export default {
         let type = ele.id.split('-')[0];
         let imageID = ele.getAttribute("data-imageId");
 
-        console.log("imageID", imageID, ele.id, "== thisImage",this.images[imageID].type);
+        //console.log("imageID", imageID, ele.id, "== thisImage",this.images[imageID].type);
         
         let thisImage = this.images[imageID];
         let startPos = {
@@ -167,4 +167,5 @@ img {
   color: white;
   background-color: gray;
 }
+
 </style>

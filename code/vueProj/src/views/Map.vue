@@ -190,6 +190,7 @@ export default {
           story: item.fields.story,
           display: "none",
         };
+        
         let index = 0;
         item.fields.image.forEach((imageType) => {
           let imageObj = {
@@ -328,4 +329,7 @@ export default {
   perspective-origin: 860px 200px;
   opacity: 1;
 }
+
+
+
 </style>
