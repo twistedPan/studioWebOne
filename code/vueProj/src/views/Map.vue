@@ -155,7 +155,11 @@ export default {
       let nextLocation = this.sceneContent[this.scrollIndex].location;
       //console.log("Change Locations",nextLocation[0],nextLocation[1]);
       //this.mapBox.flyTo({center: nextLocation,essential: true,});
-      this.mapBox.easeTo({center: nextLocation, zoom: 20, duration: easeSpeed});
+      this.mapBox.easeTo({
+        center: nextLocation, 
+        bearing: this.sceneContent[this.scrollIndex].mapRotation,
+        zoom: this.sceneContent[this.scrollIndex].zoom, 
+        duration: easeSpeed});
       
       setTimeout(callback,easeSpeed*1.5);
       
@@ -181,6 +185,8 @@ export default {
             item.fields.mappoint.fields.location.lon,
             item.fields.mappoint.fields.location.lat,
           ],
+          mapRotation: item.fields.mappoint.fields.rotation,
+          mapZoom: item.fields.mappoint.fields.zoom,
           story: item.fields.story,
           display: "none",
         };
@@ -197,7 +203,7 @@ export default {
             scale: imageType.fields.scale,
           };
 
-          // set Image Position on Y-Axis & Z-Index Property
+          // set Image Position Z on Y-Axis & Z-Index Property
           switch (imageType.fields.position) {
             case "Vordergrund":
               imageObj.positionZ = 10;
@@ -208,7 +214,7 @@ export default {
               imageObj.zIndex = 8;
               break;
             case "Hintergrund Element":
-              imageObj.positionZ = 4;
+              imageObj.positionZ = 2;
               imageObj.zIndex = 6;
               break;
             case "Hintergrund":
