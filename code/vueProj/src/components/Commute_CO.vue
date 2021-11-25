@@ -18,6 +18,7 @@
       v-bind:src="image.src"
       :data-imageId=image.id
     />
+  <div class="yellow"></div>
   </div>
 </template>
 

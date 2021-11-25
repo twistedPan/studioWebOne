@@ -1,8 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import MagicScroll from "/node_modules/magic-scroll.js/src/MagicScroll.js";
-
+/* import MagicScroll from "/node_modules/magic-scroll.js/src/MagicScroll.js";
 
 let magicScroll = new MagicScroll({
     target: document.querySelector("#scenes"),
@@ -10,14 +9,10 @@ let magicScroll = new MagicScroll({
     smooth: 10,
     current: 0 // position
 });
-
-let yellowChild = document.createElement('div');
+ */
+/* let yellowChild = document.createElement('div');
 yellowChild.classList.add('yellow');
-document.body.appendChild(yellowChild)
-
-magicScroll.onUpdate = a => {
-    console.log("Cgasfefae");
-  };
+document.body.appendChild(yellowChild) */
 
 // Scroll index Varaible
 Window.ScrollValue = 0;

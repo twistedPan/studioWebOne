@@ -1,5 +1,9 @@
 <template>
-  <div v-on:wheel="scrolly" v-on:click="changeScene">
+  <div
+    v-on:wheel="scrolly"
+    v-on:mousemove="moveScreen"
+    v-on:click="changeScene"
+  >
     <div ref="container" class="map"></div>
     <div id="scene" ref="sceneRef">
       <Commute_CO 
