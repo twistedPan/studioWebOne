@@ -227,8 +227,7 @@ export default {
               break;
           }
 
-          index++;
-          //console.log("Image Object:",sceneObj.id,imageObj.name);
+          //console.log("Image Object:",sceneObj.id,imageObj);
           sceneObj.imageArr.push(imageObj);
         });
 

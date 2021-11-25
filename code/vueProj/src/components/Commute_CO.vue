@@ -67,7 +67,7 @@ export default {
         let type = ele.id.split('-')[0];
         let imageID = ele.getAttribute("data-imageId");
 
-        //console.log("imageID", imageID, ele, "thisImage",this.images[imageID]);
+        console.log("imageID", imageID, ele.id, "== thisImage",this.images[imageID].type);
         
         let thisImage = this.images[imageID];
         let startPos = {
