@@ -6,7 +6,7 @@
   >
     <div ref="container" class="map"></div>
     <div id="scene" ref="sceneRef">
-      <Commute_CO 
+      <Commute_CO
         v-for="(scene, i) in sceneContent"
         :ref="'imageRel-'+i"
         :key="scene"
@@ -54,33 +54,33 @@ export default {
       let currentImageRef = "imageRel-"+this.scrollIndex;
 
       /**
-       * Wenn neuer Index erreicht ist 
-       * - alles display : "none"           
+       * Wenn neuer Index erreicht ist
+       * - alles display : "none"
        * - "fly to" new location
        * - blockiere Scrolling - stelle alles auf stopp
        * - WENN FERTIG mit "fly to"
-       * - new contnet: 
+       * - new contnet:
        *      - opacitiy : 0
        *      - display : "block"
        *      - ease Opacity in()
-       * 
+       *
        * Wiederholen
        */
 
       // Content change if scrollIndex changes value
-      if (this.scrollIndex != currentIndex) 
+      if (this.scrollIndex != currentIndex)
       {
         if (this.scrollIndex < currentIndex) {this.scrollIndex = currentIndex; return;}
         Array.from(this.$refs.sceneRef.children).forEach(ele => {ele.style.display = "none";});
         this.scroll_Z = 0;
         this.scrollValue = Math.floor(this.scrollValue);
-        
+
         this.mapMove(function() {
           console.log("Map finished Moving, Index",that.scrollIndex);
           that.$refs.sceneRef.children[that.scrollIndex].style.display = "block";
-          
+
           console.log("New Content:", currentContent.name);
-          
+
           // currentContent.sound // sound file is here
           /* let aduioEle = document.getElementsByTagName("audio");
           console.log("currentContent.sound",currentContent.sound);
@@ -93,9 +93,9 @@ export default {
             currentIndex = that.scrollIndex;
           }, 1200)
         }, 2000);
-        
+
       } else {
-        
+
         console.log("that.scrollIndex",that.scrollIndex);
         this.$refs[currentImageRef].moveImage(this.scroll_Z);
         //console.log("- --> this.$refs", currentImageRef, this.$refs[currentImageRef]);
@@ -120,8 +120,8 @@ export default {
       // Map scroll to array indexes
       let scrollRange = Window.Util.mapRange(this.scrollValue,0,Window.ScrollChange,0,9);
       //console.log("- --> scrollRange", scrollRange);
-      
-      this.scrollIndex = Math.floor(scrollRange);      
+
+      this.scrollIndex = Math.floor(scrollRange);
       //console.log("Scroll Value is at:",this.scrollValue,"Index:",Window.ScrollInde);
 
 
@@ -141,23 +141,23 @@ export default {
     changeScene: function () {
       // xxx remove this function
       let that = this;
-      
+
       this.clickIndex++;
       // reset click index
       if (this.clickIndex > this.sceneContent.length-1) this.clickIndex = 0;
       this.scrollIndex = this.clickIndex;
-      
+
       Array.from(this.$refs.sceneRef.children).forEach(ele => {ele.style.display = "none";});
-      
+
       this.mapMove(function() {
         console.log("Map finished Moving, clickIndex",that.clickIndex);
         that.$refs.sceneRef.children[that.clickIndex].style.display = "block";
-        
+
         let currentImageRef = "imageRel-"+that.clickIndex;
-        
+
         // Ease In -> new Index
         that.$refs[currentImageRef].moveIn(function(){
-          
+
           }, 500)
       },500);
 
@@ -167,13 +167,13 @@ export default {
       //console.log("Change Locations",nextLocation[0],nextLocation[1]);
       //this.mapBox.flyTo({center: nextLocation,essential: true,});
       this.mapBox.easeTo({
-        center: nextScene.location, 
+        center: nextScene.location,
         bearing: nextScene.mapRotation,
-        zoom: nextScene.mapZoom, 
+        zoom: nextScene.mapZoom,
         duration: easeSpeed});
-      
+
       setTimeout(callback,easeSpeed*1.5);
-      
+
     }
   },
   created: function () {
@@ -206,7 +206,7 @@ export default {
         /* if (typeof item.fields.sound != "undefined"){
           sceneObj.sound = item.fields.sound[0].fields.file.url;
         } */
-        
+
         let index = 0;
         item.fields.image.forEach((imageType) => {
           let imageObj = {
@@ -283,7 +283,7 @@ export default {
     // Add fog
     map.setFog({
       range: [-1, 2],
-      color: "white",
+      color: "#f6f4e4",
       "horizon-blend": 0.1,
     });
 
@@ -312,10 +312,10 @@ export default {
         },
       });
     });
-    
+
     this.mapBox = map;
 
-    // set first scene  
+    // set first scene
     this.$refs.sceneRef.children[0].style.display = "block";
   },
 };
