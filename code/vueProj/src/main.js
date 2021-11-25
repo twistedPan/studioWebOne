@@ -34,7 +34,7 @@ Window.Placement = {
 
 
 Window.ScrollSpeed = 4;
-Window.ScrollChange = 200 * 8;
+Window.ScrollChange = 10 * 8;
 
 // Funtions
 
