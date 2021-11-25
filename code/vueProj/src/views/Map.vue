@@ -190,10 +190,10 @@ export default {
           story: item.fields.story,
           display: "none",
         };
-
+        let index = 0;
         item.fields.image.forEach((imageType) => {
           let imageObj = {
-            id: imageType.fields.id,
+            id: index++,
             src: imageType.fields.image.fields.file.url,
             positionX: imageType.fields.xAxis,
             positionY: imageType.fields.yAxis,
