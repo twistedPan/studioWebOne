@@ -1,5 +1,6 @@
 <template>
   <div id="scenes" class="commute" v-bind:style="{ display: display }">
+    <div class="reduceMap"></div>
     <div class="sceneInfo">
       <p>
         Name: <b>{{ name }}</b>
@@ -106,7 +107,7 @@ export default {
 
         let moveInAnim = ele.animate(
           [
-            {opacity: 0},
+            {opacity: 1},
             {opacity: 1},
           ],
           {fill: "forwards", easing: "ease-in",duration: speed,}
