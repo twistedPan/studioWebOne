@@ -114,7 +114,7 @@ export default {
 
         let moveInAnim = ele.animate(
           [
-            {opacity: 1},
+            {opacity: 0},
             {opacity: 1},
           ],
           {fill: "forwards", easing: "ease-in",duration: speed,}
