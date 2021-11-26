@@ -9,7 +9,7 @@
   position: absolute;
   z-index: 100;
   opacity: 0;
-  animation: letters 10s;
+  animation: letters 7s;
   display: flex;
   align-items: center;
   justify-content: center;
