@@ -138,7 +138,7 @@ export default {
       //this.$refs.sceneRef.style.transform = `rotate3d(1,0,0, ${mouseYMap}deg) skewX(${mouseXMap}deg)`;
       //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
     },
-    changeScene: function () {
+    /* changeScene: function () {
       // xxx remove this function
       let that = this;
 
@@ -161,7 +161,7 @@ export default {
           }, 500)
       },500);
 
-    },
+    }, */
     mapMove: function (callback, easeSpeed = 4000) {
       let nextScene = this.sceneContent[this.scrollIndex];
       //console.log("Change Locations",nextLocation[0],nextLocation[1]);

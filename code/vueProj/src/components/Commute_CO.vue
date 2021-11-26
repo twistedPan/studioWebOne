@@ -63,16 +63,23 @@ export default {
 
     },
     moveImage: function (value) {
-      //console.log("Move Value:", value, this);
+      console.log("Move Value:", value, this);
 
       this.imagesEle.forEach((ele) => {
         let type = ele.id.split('-')[0];
         let imageID = ele.getAttribute("data-imageId");
 
-        //console.log("imageID", imageID, ele.id, "== thisImage",this.images[imageID].type);
-
         let thisImage = this.images[imageID];
-        let startPos = {
+        //console.log("imageID", imageID, ele, "== thisImage",thisImage);
+
+        // set a new image is reseting the view.
+        /* if (thisImage.transition != null && value >= 20) {
+          ele.src = thisImage.transition;
+          console.log("Change image to", thisImage.transition);
+        }
+        else ele.src = thisImage.src; */
+        
+          let startPos = {
           x: thisImage.positionX,
           y: thisImage.positionY,
           z: thisImage.positionZ,
