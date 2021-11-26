@@ -9,7 +9,7 @@
   position: absolute;
   z-index: 100;
   opacity: 0;
-  animation: letters 7s;
+  animation: letters 10s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,6 +37,7 @@
   width: 70vw;
   font-size: 5vh;
   position: absolute;
+  animation: easeIn 3s;
 }
 
 .image3D {
@@ -48,6 +49,7 @@
 @keyframes blur {
   from {
     filter: blur(12px);
+    opacity: 0;
   }
 
   75% {
@@ -56,7 +58,13 @@
 
   to {
     filter: blur(0px);
+    opacity: 1;
   }
+}
+
+@keyframes easeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .yellow {

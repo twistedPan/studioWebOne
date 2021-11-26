@@ -27,7 +27,7 @@ createApp(App).use(router).mount('#app')
 // size of scroll steps 
 Window.ScrollSpeed = 4;
 // scroll step in each scene // one scene * scene count
-Window.ScrollChange = 160 * 8;
+Window.ScrollChange = 250 * 8;
 
 // Funtions
 

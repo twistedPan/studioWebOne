@@ -100,7 +100,7 @@ export default {
       });
     },
     moveIn: function (callback, speed = 2000) {
-      //console.log("Ease In");
+      console.log("Ease In");
 
       this.imagesEle.forEach((ele) => {
 

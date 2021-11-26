@@ -219,7 +219,11 @@ export default {
             name: imageType.fields.titel,
             type: imageType.fields.position,
             scale: imageType.fields.scale,
+            transition: null
           };
+
+          if (typeof imageType.fields.forAnimation != "undefined")
+            imageObj.transition = imageType.fields.forAnimation;
 
           // set Image Position Z on Y-Axis & Z-Index Property
           switch (imageType.fields.position) {
