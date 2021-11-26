@@ -273,16 +273,16 @@ export default {
       container: this.$refs.container, // container ID
       style: "mapbox://styles/kaszedal/ckw3ivnhz1ch814p4yufi1f0e", // Map Style
       center: [8.313357, 47.050149], // starting position [lng, lat] 47°03'00.5"N 8°18'48.1"E
-      pitch: 89, // Tilting/Neigung in degrees, max = 90°
+      pitch: 70, // Tilting/Neigung in degrees, max = 90°
       bearing: 0, // Rotation um Y
-      zoom: 21, // starting zoom
+      zoom: 20, // starting zoom
       interactive: false, // no drag no zoom
     });
     // Displaying a GPX track
     await map.once("load");
     // Add fog
     map.setFog({
-      range: [-1, 2],
+      range: [1, 2],
       color: "#f6f4e4",
       "horizon-blend": 0.1,
     });
@@ -351,7 +351,6 @@ export default {
   perspective-origin: 860px 200px;
   opacity: 1;
 }
-
 
 
 </style>

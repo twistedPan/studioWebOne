@@ -1,5 +1,6 @@
 <template>
   <div id="scenes" class="commute" v-bind:style="{ display: display }">
+    <div class="reduceMap"></div>
     <div class="sceneInfo">
       <p>
         Name: <b>{{ name }}</b>

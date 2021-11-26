@@ -69,3 +69,12 @@
   opacity: 0.27;
   margin: 0 auto;
 }
+
+.reduceMap {
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  opacity: 0.4;
+  margin: 0 auto;
+}
