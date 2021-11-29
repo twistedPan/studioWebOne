@@ -76,10 +76,10 @@ export default {
         this.scrollValue = Math.floor(this.scrollValue);
 
         this.mapMove(function() {
-          console.log("Map finished Moving, Index",that.scrollIndex);
+          //console.log("Map finished Moving, Index",that.scrollIndex);
           that.$refs.sceneRef.children[that.scrollIndex].style.display = "block";
 
-          console.log("New Content:", currentContent.name);
+          //console.log("New Content:", currentContent.name);
 
           // currentContent.sound // sound file is here
           /* let aduioEle = document.getElementsByTagName("audio");
@@ -96,7 +96,7 @@ export default {
 
       } else {
 
-        console.log("that.scrollIndex",that.scrollIndex);
+        //console.log("that.scrollIndex",that.scrollIndex);
         this.$refs[currentImageRef].moveImage(this.scroll_Z);
         //console.log("- --> this.$refs", currentImageRef, this.$refs[currentImageRef]);
 
@@ -259,7 +259,7 @@ export default {
 
       Window.Content.sort((a, b) => a.id - b.id); // sort content by ID 0->8
       this.sceneContent.sort((a, b) => a.id - b.id); // sort content by ID 0->8
-      console.log("Content  loaded");
+      //console.log("Content  loaded");
       //console.log("Scene Content:", this.sceneContent, this.sceneContent.length);
 
       // currentContent.sound // sound file is here
