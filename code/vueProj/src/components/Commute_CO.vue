@@ -63,7 +63,7 @@ export default {
 
     },
     moveImage: function (value) {
-      console.log("Move Value:", value, this);
+      //console.log("Move Value:", value, this);
 
       this.imagesEle.forEach((ele) => {
         let type = ele.id.split('-')[0];
@@ -108,7 +108,6 @@ export default {
       });
     },
     moveIn: function (callback, speed = 2000) {
-      console.log("Ease In");
 
       this.imagesEle.forEach((ele) => {
 
