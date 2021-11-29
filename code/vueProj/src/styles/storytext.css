@@ -43,7 +43,7 @@
 .image3D {
   filter: blur(0px);
   /* background-blend-mode: color-burn; */
-  animation: blur 7s;
+  animation: blur 9s;
 }
 
 @keyframes blur {
