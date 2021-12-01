@@ -40,6 +40,19 @@
   animation: easeIn 3s;
 }
 
+.storySubtext {
+  font-family: 'Cinzel';
+  z-index: 90;
+  color: #191100;
+  text-shadow: 2px 2px 6px #ddd7c3;
+  width: 70vw;
+  font-size: 4vh;
+  position: absolute;
+  top: 70vh;
+  animation: easeIn 5s;
+  white-space:pre;
+}
+
 .image3D {
   filter: blur(0px);
   /* background-blend-mode: color-burn; */

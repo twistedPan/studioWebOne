@@ -9,6 +9,7 @@
     </div>
     <div class="storyContainer">
       <p class="storyText">{{ story }}</p>
+      <p class="storySubtext">{{ subtext }}</p>
     </div>
     <img
       v-for="image in images"
@@ -35,6 +36,7 @@ export default {
     mapPoint: Object,
     type: String,
     story: String,
+    subtext: String,
     display : String
   },
   methods: {

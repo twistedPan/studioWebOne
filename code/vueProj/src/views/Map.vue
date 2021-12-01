@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-on:wheel="scrolly"
-    v-on:mousemove="moveScreen"
-    v-on:click="changeScene"
-  >
+  <div v-on:wheel="scrolly">
     <div ref="container" class="map"></div>
     <div id="scene" ref="sceneRef">
       <Commute_CO
@@ -15,6 +11,7 @@
         :images="scene.imageArr"
         :mapPoint="scene.location"
         :story="scene.story"
+        :subtext="scene.subtext"
         :display="scene.display"
       />
     </div>
@@ -36,21 +33,22 @@ export default {
   },
   data: function () {
     return {
-      commutes: [],
       sceneContent: [],
       mapBox: null,
       scroll_Z : 0,
       scrollIndex : 0,
       scrollValue : 0,
       clickIndex : 0,
+      scrollIsBlocked : true,
     };
   },
   methods: {
     scrolly: function (event) {
       let that = this;
+      if (this.scrollIsBlocked) return;
       //console.log("Event:",event.deltaY);
 
-      let currentContent = this.sceneContent[this.scrollIndex];
+      //let currentContent = this.sceneContent[this.scrollIndex]; //! Audio is not enabled
       let currentImageRef = "imageRel-"+this.scrollIndex;
 
       /**
@@ -72,8 +70,11 @@ export default {
       {
         if (this.scrollIndex < currentIndex) {this.scrollIndex = currentIndex; return;}
         Array.from(this.$refs.sceneRef.children).forEach(ele => {ele.style.display = "none";});
-        this.scroll_Z = 0;
+        this.scroll_Z = 0; // for translating through Z-Axis
         this.scrollValue = Math.floor(this.scrollValue);
+
+        this.scrollIsBlocked = true;
+         console.log("scroll blocked")
 
         this.mapMove(function() {
           //console.log("Map finished Moving, Index",that.scrollIndex);
@@ -91,77 +92,50 @@ export default {
           that.$refs[currentImageRef].moveIn(function(){
             // set or refresh current index
             currentIndex = that.scrollIndex;
+            if (currentIndex >= that.sceneContent.length) currentIndex = 0;
+
+            setTimeout(_=>{that.scrollIsBlocked = false; console.log("scroll unblocked");},8000);
+            
           }, 1200)
         }, 2000);
 
       } else {
 
-        //console.log("that.scrollIndex",that.scrollIndex);
-        this.$refs[currentImageRef].moveImage(this.scroll_Z);
-        //console.log("- --> this.$refs", currentImageRef, this.$refs[currentImageRef]);
+          if (this.scrollIsBlocked == false) {
+          //console.log("that.scrollIndex",that.scrollIndex);
+          this.$refs[currentImageRef].moveImage(this.scroll_Z);
+          //console.log("- --> this.$refs", currentImageRef, this.$refs[currentImageRef]);
 
-        // Add to scroll count
-        if (event.deltaY < 0) {
-          this.scrollValue -= Window.ScrollSpeed;
-          this.scroll_Z -= Window.ScrollSpeed;
-        }
-        else {
-          this.scrollValue += Window.ScrollSpeed; // mousewheel down
-          this.scroll_Z += Window.ScrollSpeed;
-        }
+          // Add to scroll count
+          if (event.deltaY < 0) {
+            this.scrollValue -= Window.ScrollSpeed;
+            this.scroll_Z -= Window.ScrollSpeed;
+          }
+          else {
+            this.scrollValue += Window.ScrollSpeed; // mousewheel down
+            this.scroll_Z += Window.ScrollSpeed;
+          }
 
-        if (this.scrollValue < 0 || this.scroll_Z < 0) {
-          this.scrollValue = 0; // no negatives
-          this.scroll_Z = 0;
-        }
-        //console.log("- --> this.scroll_Z", this.scroll_Z);
+          if (this.scrollValue < 0 || this.scroll_Z < 0) {
+            this.scrollValue = 0; // no negatives
+            this.scroll_Z = 0;
+          }
+          //console.log("- --> this.scroll_Z", this.scroll_Z);
 
+        }
       }
       // Map scroll to array indexes
-      let scrollRange = Window.Util.mapRange(this.scrollValue,0,Window.ScrollChange,0,9);
+      let scrollRange = Window.Util.mapRange(this.scrollValue, 0,Window.ScrollChange, 0,this.sceneContent.length-1);
       //console.log("- --> scrollRange", scrollRange);
 
       this.scrollIndex = Math.floor(scrollRange);
+      if (this.scrollIndex >= this.sceneContent.length) {
+        location.reload();
+      }
       //console.log("Scroll Value is at:",this.scrollValue,"Index:",Window.ScrollInde);
 
 
     },
-    moveScreen: function () {
-      //console.log("Move",event);
-      /* let mousePosX = event.screenX;
-        if (mousePosX > 1920) mousePosX -= 1920;
-        let mousePosY = event.screenY;
-        let mouseXMap = Window.Util.mapRange(mousePosX, 0, 1920, 5, -5);
-        let mouseYMap = Window.Util.mapRange(mousePosY, 0, 1080, 0, 5); */
-      //let ele_Scene = document.getElementById("scene");
-      //console.log("mousePosX", mousePosX, "MapX", mouseXMap, "\nmousePosY", mousePosY,"MapY", mouseYMap);
-      //this.$refs.sceneRef.style.transform = `rotate3d(1,0,0, ${mouseYMap}deg) skewX(${mouseXMap}deg)`;
-      //console.log("- --> this.$refs.scene.style", this.$refs.scene.style);
-    },
-    /* changeScene: function () {
-      // xxx remove this function
-      let that = this;
-
-      this.clickIndex++;
-      // reset click index
-      if (this.clickIndex > this.sceneContent.length-1) this.clickIndex = 0;
-      this.scrollIndex = this.clickIndex;
-
-      Array.from(this.$refs.sceneRef.children).forEach(ele => {ele.style.display = "none";});
-
-      this.mapMove(function() {
-        console.log("Map finished Moving, clickIndex",that.clickIndex);
-        that.$refs.sceneRef.children[that.clickIndex].style.display = "block";
-
-        let currentImageRef = "imageRel-"+that.clickIndex;
-
-        // Ease In -> new Index
-        that.$refs[currentImageRef].moveIn(function(){
-
-          }, 500)
-      },500);
-
-    }, */
     mapMove: function (callback, easeSpeed = 4000) {
       let nextScene = this.sceneContent[this.scrollIndex];
       //console.log("Change Locations",nextLocation[0],nextLocation[1]);
@@ -199,6 +173,7 @@ export default {
           mapRotation: item.fields.mappoint.fields.rotation,
           mapZoom: item.fields.mappoint.fields.zoom,
           story: item.fields.story,
+          subtext: "",
           display: "none",
           sound: null
         };
@@ -206,6 +181,12 @@ export default {
         /* if (typeof item.fields.sound != "undefined"){
           sceneObj.sound = item.fields.sound[0].fields.file.url;
         } */
+
+        if (sceneObj.story.split('//').length > 1) {
+          let splitStory = sceneObj.story.split('//');
+          sceneObj.story = splitStory[0];
+          sceneObj.subtext = splitStory[1];
+        }
 
         let index = 0;
         item.fields.image.forEach((imageType) => {
@@ -263,11 +244,13 @@ export default {
       //console.log("Scene Content:", this.sceneContent, this.sceneContent.length);
 
       // currentContent.sound // sound file is here
-          /* let aduioEle = document.getElementsByTagName("audio")[0];
-          console.log("- --> client.getEntries --> aduioEle", aduioEle);
-          console.log("currentContent.sound",this.sceneContent[0].sound);
-          aduioEle.src = this.sceneContent[0].sound;
-          aduioEle.play(); */
+        /* let aduioEle = document.getElementsByTagName("audio")[0];
+        console.log("- --> client.getEntries --> aduioEle", aduioEle);
+        console.log("currentContent.sound",this.sceneContent[0].sound);
+        aduioEle.src = this.sceneContent[0].sound;
+        aduioEle.play(); */
+
+        setTimeout(_=>{this.scrollIsBlocked = false; console.log("scroll unblocked");},9000)
     });
   },
   mounted: async function () {
