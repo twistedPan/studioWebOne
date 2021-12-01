@@ -1,4 +1,4 @@
-# HSLU Studio Web One
+# HSLU Studio Web One - The Story of Cassandra
 
 a web story made by:
 
